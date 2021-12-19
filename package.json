@@ -1,0 +1,12 @@
+{
+  "name": "wp1101_clowns_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/moose1108/wp1101_clowns_project.git",
+  "author": "moose1108 <75203439+moose1108@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn server"
+  }
+}
