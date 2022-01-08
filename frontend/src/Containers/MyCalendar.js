@@ -41,7 +41,7 @@ const events = [
 ]
 
 const MyCalendar = () => {
-    const [newEvent, setNewEvent] = useState()
+    //const [newEvent, setNewEvent] = useState()
     return (
         <Calendar 
             localizer={localizer} 
