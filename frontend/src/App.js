@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components';
+import MyCalendar from './MyCalendar';
+import "antd/dist/antd.min.css";
 
 const Wrapper = styled.div`
 display: flex;
@@ -14,6 +16,7 @@ margin: auto;
 function App() {
   return (
     <Wrapper>
+      <MyCalendar />
     </Wrapper>
   );
 }
