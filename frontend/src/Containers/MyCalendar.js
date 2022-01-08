@@ -8,49 +8,54 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 const locales = {
-    "en-US" : require("date-fns/locale/en-US")
-}
-
+    "en-US": require("date-fns/locale/en-US"),
+};
 const localizer = dateFnsLocalizer({
     format,
     parse,
     startOfWeek,
     getDay,
-    locales
-})
+    locales,
+});
 
 const events = [
     {
-        title: "Big-meeting",
+        title: "Big Meeting",
         allDay: true,
-        start: new Date(2022, 1, 2),
-        end: new Date(2022, 1, 4)
+        start: new Date(2021, 6, 0),
+        end: new Date(2021, 6, 0),
     },
     {
         title: "Vacation",
-        allDay: true,
-        start: new Date(2021, 12, 30),
-        end: new Date(2022, 1, 3)
+        start: new Date(2021, 6, 7),
+        end: new Date(2021, 6, 10),
     },
     {
         title: "Conference",
-        allDay: true,
-        start: new Date(2022, 1, 30),
-        end: new Date(2022, 1, 30)
-    }
-]
+        start: new Date(2021, 6, 20),
+        end: new Date(2021, 6, 23),
+    },
+];
 
 const MyCalendar = () => {
-    //const [newEvent, setNewEvent] = useState()
-    return (
-        <Calendar 
-            localizer={localizer} 
-            events={events} 
-            startAccessor="start" 
-            endAccessor="end"
-            style={{height: 500, margin: "5px"}}
-        />
-    )
-}
+    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+    const [allEvents, setAllEvents] = useState(events);
 
+    function handleAddEvent() {
+        setAllEvents([...allEvents, newEvent]);
+    }
+
+    return (
+            <Calendar 
+            localizer={localizer} 
+            events={allEvents} 
+            startAccessor="start" 
+            endAccessor="end" 
+            style={{ 
+                width: 800, 
+                height: 500, 
+                margin: "50px" 
+            }} />
+    );
+}
 export default MyCalendar;

@@ -48,11 +48,7 @@ const Home = () => {
             </Sider>
             <Layout >
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                    <div>
-                        <p>jerome</p>
-                        <p>jerome</p>
-                        <p>jerome</p>
-                    </div>
+                    <MyCalendar />
                 </Content>
             </Layout>
         </Layout >
