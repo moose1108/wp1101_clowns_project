@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Layout, Menu } from 'antd';
 import {
     BarChartOutlined,
@@ -8,7 +7,7 @@ import {
     DollarOutlined,
     ScheduleOutlined
 } from '@ant-design/icons';
-import MyCalendar from "./MyCalendar";
+import MyCalendar from './MyCalendar';
 
 const { Header, Content, Footer, Sider } = Layout;
 

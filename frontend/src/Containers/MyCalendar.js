@@ -46,15 +46,15 @@ const MyCalendar = () => {
     }
 
     return (
-            <Calendar 
-            localizer={localizer} 
-            events={allEvents} 
-            startAccessor="start" 
-            endAccessor="end" 
-            style={{ 
-                width: 800, 
-                height: 500, 
-                margin: "50px" 
+        <Calendar
+            localizer={localizer}
+            events={allEvents}
+            startAccessor="start"
+            endAccessor="end"
+            style={{
+                width: 800,
+                height: 450,
+                margin: "50px"
             }} />
     );
 }
