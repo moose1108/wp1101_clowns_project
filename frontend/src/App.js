@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 import MyCalendar from './Containers/MyCalendar';
-
+import Add from './Containers/Add';
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -11,8 +11,9 @@ import {
   DollarOutlined,
   ScheduleOutlined
 } from '@ant-design/icons';
-
+import "./Css/Menu.css"
 const { Header, Content, Footer, Sider } = Layout;
+
 
 function App() {
   // const [login, setLogin] = useState(false);
@@ -29,7 +30,7 @@ function App() {
           left: 0,
         }}>
           <Menu theme="dark" mode="inline">
-            <Menu.Item key='1' style={{ height: '100px', fontSize: '40px', margin: '0px', background: '#FFB326' }}>
+            <Menu.Item key='1' style={{ height: '100px', fontSize: '40px', margin: '0px', background: '#971d1d' }}>
               <NavLink to="/add" />
               +
             </Menu.Item>
@@ -54,7 +55,7 @@ function App() {
               預算
             </Menu.Item>
             <Menu.Item key='7' style={{ height: '60px', fontSize: '20px' }} icon={<SettingOutlined style={{ fontSize: '110%' }} />}>
-              <NavLink to="setting" />
+              <NavLink to="/setting" />
               設定
             </Menu.Item>
           </Menu>
@@ -63,6 +64,7 @@ function App() {
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <Routes>
               <Route exact path="/calendar" element={<MyCalendar />} />
+              <Route exact path="/add" element={<Add />} />
               <Route path="/" element={<Navigate replace to="/calendar" />} />
             </Routes>
           </Content>

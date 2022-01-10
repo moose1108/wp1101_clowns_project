@@ -1,0 +1,12 @@
+.ant-tabs-ink-bar {
+    position: absolute;
+    background: #971d1d !important;
+    pointer-events: none;
+ }
+ .ant-tabs-tab-btn{
+   font-size: 20px;
+ }
+ .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #971d1d !important; 
+    font-weight: 500;
+ }
