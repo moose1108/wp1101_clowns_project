@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Navigate, NavLink } from "react-router-dom";
 import MyCalendar from './Containers/MyCalendar';
 import Add from './Containers/Add';
+import Signin from './Containers/Sign_in'
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -16,11 +17,11 @@ const { Header, Content, Footer, Sider } = Layout;
 
 
 function App() {
-  // const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(false);
 
   // if (login) 
   // {
-  return (
+  return login? (
     <div>
       <Layout>
         <Sider style={{
@@ -36,7 +37,7 @@ function App() {
             </Menu.Item>
             <Menu.Item key='2' style={{ height: '60px', fontSize: '20px', marginTop: '0px' }} icon={<InsertRowAboveOutlined style={{ fontSize: '110%' }} />}>
               <NavLink to="/calendar" />
-              行事曆
+              日曆
             </Menu.Item>
             <Menu.Item key='3' style={{ height: '60px', fontSize: '20px' }} icon={<BarChartOutlined style={{ fontSize: '110%' }} />}>
               <NavLink to="/graph" />
@@ -71,7 +72,7 @@ function App() {
         </Layout>
       </Layout>
     </div>
-  )
+  ) : (<Signin Login = {setLogin}/>)
   // }
   // else{
   //   return(

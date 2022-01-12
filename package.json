@@ -1,5 +1,6 @@
 {
   "name": "wp1101_clowns_project",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/moose1108/wp1101_clowns_project.git",
