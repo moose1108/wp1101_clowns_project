@@ -2,8 +2,9 @@ import React from 'react';
 import '../Css/Sign_in.css';
 import { Form, Input, Button, Checkbox,Modal,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Layout,Image } from 'antd';
+import { Layout} from 'antd';
 import { useState } from 'react';
+import axios from '../axios.js'
 const NormalLoginForm = ({Login}) => {
   const [password,setPassword] = useState("");
   const [username,setUsername] = useState("");
@@ -11,8 +12,28 @@ const NormalLoginForm = ({Login}) => {
   const onFinish = values => {
     console.log('Received values of form: ', values);
   };
-  const login = () =>{
-      Login(true);
+  const login = async () =>{
+    const {
+        data: { Message, status },
+    } = await axios.get('/api/Check', {
+        params: {
+          username,
+          password
+        },  
+      });
+    if(status)
+    {   
+        message.success({
+            content:Message
+        })
+        Login(true);
+    }
+    else
+    {
+        message.error({
+            content:Message
+        })
+    }
   }
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -20,39 +41,49 @@ const NormalLoginForm = ({Login}) => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     if(password !== "" && username !=="" && confirmpassword !=="")
     {
         if(password === confirmpassword)
-        {
-            setPassword("");
-            setUsername("");
-            setConfirmpassword("");
-            message.success({
-                content:'Register Success !'
+        {   
+            const {
+                data: { Message,status},
+              } = await axios.post('/api/Register', {
+                username,
+                password
+            });
+            if(status)
+            {
+                setPassword("");
+                setUsername("");
+                setConfirmpassword("");
+                message.success({
+                    content:Message
+                })
+                setIsModalVisible(false);
+                window.location.reload(true);
             }
-            )
-            setIsModalVisible(false);
-            window.location.reload(true);
-            console.log(password)
+            else
+            {
+                message.error({
+                    content:Message
+                })
+            }
         }
         else
         {
             message.error({
                 content:'Confirmed Passowrd is not same!'
-            }
-            )
+            })
         }
     }
     else
     {
         message.error({
             content:'Username or Password or ConfirmPassword is empty'
-        }
-        )
+        })
     }
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
     setPassword("");
