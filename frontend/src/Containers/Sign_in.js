@@ -59,7 +59,7 @@ const NormalLoginForm = ({Login}) => {
                     </a>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button" onClick={login}>
+                    <Button type="primary" htmlType="submit" className="login-form-button" onClick={login}  style={{ color:"rgb(196, 101, 58)",background: "white", borderColor: "black",borderRadius:"10px"}}>
                     Log in
                     </Button>
                     Or <a href="https://www.google.com/">register now!</a>

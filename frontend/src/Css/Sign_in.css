@@ -6,12 +6,13 @@
 }
 .login-form-button {
     width: 100%;
+    color:rgb(196, 101, 58);
 }
 .space {
     align-content: center;
     justify-content: center;
-    width: 400px;
-    height: 400px;
+    width: 25%;
+    height: 60%;
     position: relative;
     left: 37%;
     margin-top: 10%;
