@@ -13,15 +13,14 @@ import {
   ScheduleOutlined
 } from '@ant-design/icons';
 import "./Css/Menu.css"
+
 const { Header, Content, Footer, Sider } = Layout;
 
 
 function App() {
   const [login, setLogin] = useState(false);
 
-  // if (login) 
-  // {
-  return login? (
+  return login ? (
     <div>
       <Layout>
         <Sider style={{
@@ -62,7 +61,7 @@ function App() {
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
-          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <Content style={{ margin: '24px 16px 0', overflow: 'initial', textAlign: 'center' }}>
             <Routes>
               <Route exact path="/calendar" element={<MyCalendar />} />
               <Route exact path="/add" element={<Add />} />
@@ -72,13 +71,7 @@ function App() {
         </Layout>
       </Layout>
     </div>
-  ) : (<Signin Login = {setLogin}/>)
-  // }
-  // else{
-  //   return(
-
-  //   )
-  // }
+  ) : (<Signin Login={setLogin} />)
 }
 
 export default App;
