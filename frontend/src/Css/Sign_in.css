@@ -3,6 +3,7 @@
 }
 .login-form-forgot {
     float: right;
+    color:azure;
 }
 .login-form-button {
     width: 100%;
@@ -18,21 +19,22 @@
     margin-top: 10%;
     border-radius: 10%;
     box-shadow: 5px 5px 5px;
-    background-color: #98c911;
+    background-color: black;
 }
 
 .space div{
     margin-top: 1%;
     margin-left: 4%;
 }
-.title {
-    margin-left: 50px;
-}
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
 .title {
     font-size: 50px;
     font-family: 'Nunito', sans-serif;
     margin-left: 28%;
+    color: azure;
+}
+.register {
+    color: azure;
 }
 
 
