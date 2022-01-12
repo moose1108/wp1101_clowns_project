@@ -19,17 +19,12 @@ const Add = () => {
         console.log(value);
         navigate("/calendar");
     }
-    const handleOutTextfield = (event) => {
-        setTextfield(1);
-        console.log(event.target.innerText);
-        setCategory(event.target.innerText);
-    }
-
     const handleTextfield = (event) => {
         setTextfield(1);
         console.log(event.target.innerText);
         setCategory(event.target.innerText);
     }
+    
     const outcome = ["飲食", "交通", "日常用品", "服飾", "電話網路", "水電瓦斯", "娛樂", "教育", "保險", "稅金"]
     const income = ["工資", "獎金", "股票", "彩券"]
 
