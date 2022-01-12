@@ -2,7 +2,7 @@ import React from 'react';
 import '../Css/Sign_in.css';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { PageHeader } from 'antd';
+import { Layout,Image } from 'antd';
 const NormalLoginForm = ({Login}) => {
   const onFinish = values => {
     console.log('Received values of form: ', values);
@@ -11,6 +11,7 @@ const NormalLoginForm = ({Login}) => {
       Login(true);
   }
   return (
+       <Layout style={{backgroundColor:"lightskyblue",height:"100%",}}>
         <div className='space'>
             <div>
                 <h1 className='title'> 
@@ -67,6 +68,7 @@ const NormalLoginForm = ({Login}) => {
                 </Form>
             </div>
         </div>
+        </Layout>
   );
 };
 export default NormalLoginForm;

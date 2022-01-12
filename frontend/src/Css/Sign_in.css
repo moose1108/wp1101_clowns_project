@@ -12,13 +12,13 @@
     align-content: center;
     justify-content: center;
     width: 25%;
-    height: 100%;
+    height: 50%;
     position: relative;
     left: 37%;
     margin-top: 10%;
     border-radius: 10%;
     box-shadow: 5px 5px 5px;
-    background-color: #BABABA;
+    background-color: #98c911;
 }
 
 .space div{
