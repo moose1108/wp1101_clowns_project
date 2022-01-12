@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Routes, Route, Navigate, NavLink } from "react-router-dom";
+import { Routes, Route, Navigate, NavLink, useNavigate } from "react-router-dom";
 import MyCalendar from './Containers/MyCalendar';
 import Add from './Containers/Add';
 import Signin from './Containers/Sign_in'
@@ -19,6 +19,12 @@ const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [login, setLogin] = useState(false);
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/");
+  }, [login]);
 
   return login ? (
     <div>
@@ -71,7 +77,11 @@ function App() {
         </Layout>
       </Layout>
     </div>
-  ) : (<Signin Login={setLogin} />)
+  ) : (
+    <Routes>
+      <Route exact path="/" element={<Signin Login={setLogin} />} />
+    </Routes>
+  )
 }
 
 export default App;
