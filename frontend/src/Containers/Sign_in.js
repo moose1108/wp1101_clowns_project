@@ -33,6 +33,8 @@ const NormalLoginForm = ({Login}) => {
             }
             )
             setIsModalVisible(false);
+            window.location.reload(true);
+            console.log(password)
         }
         else
         {
@@ -56,6 +58,7 @@ const NormalLoginForm = ({Login}) => {
     setPassword("");
     setUsername("");
     setConfirmpassword("");
+    window.location.reload(true);
   };
   return (
        <Layout style={{backgroundColor:"azure",height:"100%",}}>
@@ -119,12 +122,12 @@ const NormalLoginForm = ({Login}) => {
                             name="username"
                             rules={[
                             {
-                                required: true,
+                                required: true, 
                                 message: 'Please input your Username!',
                             },
                             ]}
                         >
-                        <Input placeholder='Username' prefix={<UserOutlined className='registerinput' />} onChange={(e)=>{setUsername(e.target.value)}} value = {username}></Input>
+                        <Input value = {username} placeholder='Username' prefix={<UserOutlined className='registerinput' />} onChange={(e)=>{setUsername(e.target.value)}}></Input>
                         </Form.Item>
                         <br />
                         <Form.Item
@@ -136,13 +139,13 @@ const NormalLoginForm = ({Login}) => {
                             },
                             ]}
                         >
-                            <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                            onChange={(e)=>{setPassword(e.target.value)}}
-                            value={password}
-                            />
+                        <Input
+                        value={password}
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e)=>{setPassword(e.target.value)}}
+                        />
                         </Form.Item>
                         <br />
                         <Form.Item
@@ -154,13 +157,13 @@ const NormalLoginForm = ({Login}) => {
                             },
                             ]}
                         >
-                            <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Confirm your Password"
-                            onChange={(e)=>{setConfirmpassword(e.target.value)}}
-                            value = {confirmpassword}
-                            />
+                        <Input
+                        value={confirmpassword}
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Confirm your Password"
+                        onChange={(e)=>{setConfirmpassword(e.target.value)}}
+                        />
                         </Form.Item>
                         </Form>
                     </Modal>
