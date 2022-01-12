@@ -24,3 +24,8 @@
    color: #e40303 !important;
    border-color: #e40303 !important;
 }
+.ant-btn-primary{
+   border-color: #000000 !important;
+   background: #ffffff !important;
+   color: black !important;
+}
