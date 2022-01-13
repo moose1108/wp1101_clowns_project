@@ -1,8 +1,7 @@
 import { User } from "../Models/Record.js";
 const QueryUser = async (req,res) =>{
     const { username,password} = req.query;
-    console.log(req.query)
-    const user = await User.findOne({user:{username,password}});
+    const user = await User.findOne({username,password});
     if(user)
     {
         res.send({Message:'Login Success',status:true})

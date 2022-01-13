@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Tabs, Button, Space, Input, Typography, message } from 'antd';
 import '../Css/Add.css';
 import axios from '../axios.js'
+import { DatePicker } from 'antd';
+import moment from "moment";
+import { set } from 'date-fns';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -14,26 +17,37 @@ const Add = ({ username }) => {
     const [Content, setContent] = useState('');
     const [Type, setType] = useState("");
     const [Status, setStatus] = useState("支出");
+    const [Date, setDate] = useState(moment());
     let navigate = useNavigate();
-
 
     const handleTab = (key) => {
         setTextfield(0);
         setStatus(key);
-        console.log(username);
     }
 
     const handleCost = async (cost) => {
-        // console.log(value);
+        const date = Date.format('YYYY-MM-DD');
         var r = /^[0-9]*[1-9][0-9]*$/;
-        if (cost == "") {
+        if (cost === "") {
             message.error({
                 content: "請輸入數字"
             })
         }
         else if (r.test(cost)) {
-
-            navigate("/calendar");
+            const {
+                data: { user },
+            } = await axios.post('/api/AddRecord', {
+                username:username,
+                date: date,
+                record: {
+                    status: Status,
+                    type: Type,
+                    content: Content,
+                    cost: cost
+                }
+            });
+            console.log(user)
+            navigate("/");
         }
         else {
             message.error({
@@ -63,7 +77,8 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title >2077/8/7</Title>
+                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} /></Title>
+                        <Title>{Date.format('YYYY-MM-DD')}</Title>
                         <Title style={{ marginBottom: '10px' }}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear
@@ -95,7 +110,8 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title >2077/8/7</Title>
+                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} /></Title>
+                        <Title>{Date.format('YYYY-MM-DD')}</Title>
                         <Title >{Type}</Title>
                         <Input placeholder="備註"
                             allowClear

@@ -2,8 +2,7 @@ import { User } from "../Models/Record.js";
 
 const CreateUser = async (req,res)=>{
     const { username,password } = req.body;
-    console.log(req.body);
-    const  Username= await User.findOne( {user:{username}});
+    const  Username= await User.findOne( {username});
     if(Username)
     {   
         console.log(Username);
@@ -11,14 +10,14 @@ const CreateUser = async (req,res)=>{
     }
     else
     {
-        const Passowrd = await User.findOne({user:{password}});
+        const Passowrd = await User.findOne({password});
         if(Passowrd)
         {
             res.send({Message:'Password exists.Please retry again !',status:false})
         }
         else
         {
-            const newUser = new User({user:{username,password},records:[]});
+            const newUser = new User({username,password,records:[]});
             await newUser.save();
             res.send({Message:'Register Success',status:true});
         }
