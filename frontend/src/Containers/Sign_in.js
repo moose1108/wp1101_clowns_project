@@ -53,7 +53,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                         content: Message
                     })
                     setIsModalVisible(false);
-                    window.location.reload(true);
+                    window.location.reload(true)
                 }
                 else {
                     message.error({

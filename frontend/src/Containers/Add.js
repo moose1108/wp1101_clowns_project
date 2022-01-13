@@ -29,15 +29,16 @@ const Add = ({ username }) => {
     const handleCost = async (cost) => {
         const date = Date.format('YYYY-MM-DD');
         var r = /^[0-9]*[1-9][0-9]*$/;
-        if (cost == "") {
+        if (cost === "") {
             message.error({
                 content: "請輸入數字"
             })
         }
         else if (r.test(cost)) {
             const {
-                data: { Message, status },
+                data: { user },
             } = await axios.post('/api/AddRecord', {
+                username:username,
                 date: date,
                 record: {
                     status: Status,
@@ -46,15 +47,7 @@ const Add = ({ username }) => {
                     cost: cost
                 }
             });
-            console.log({
-                date: date,
-                record: {
-                    status: Status,
-                    type: Type,
-                    content: Content,
-                    cost: cost
-                }
-            })
+            console.log(user)
             navigate("/");
         }
         else {

@@ -1,7 +1,7 @@
 import express from "express"
 import CreateUser from "./Register.js"
 import QueryUser from "./Check.js"
-import AddRecord from './Addrecord.js'
+import AddRecord from './AddRecord.js'
 
 const Router = express.Router()
 Router.post('/Register', (req, res) => { CreateUser(req, res) })
