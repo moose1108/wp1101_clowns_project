@@ -5,10 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Layout} from 'antd';
 import { useState } from 'react';
 import axios from '../axios.js'
-const NormalLoginForm = ({Login}) => {
-const [password,setPassword] = useState("");
-const [username,setUsername] = useState("");
-const [confirmpassword,setConfirmpassword] = useState("");
+const NormalLoginForm = ({Login,password,username,confirmpassword,setConfirmpassword,setPassword,setUsername}) => {
 const onFinish = values => {
     console.log('Received values of form: ', values);
 };
