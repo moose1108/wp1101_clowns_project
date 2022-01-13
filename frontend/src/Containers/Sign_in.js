@@ -31,6 +31,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                 content: Message
             })
         }
+    }
         const [isModalVisible, setIsModalVisible] = useState(false);
         const showModal = () => {
             setIsModalVisible(true);
@@ -193,5 +194,4 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
 
         );
     };
-}
 export default NormalLoginForm;
