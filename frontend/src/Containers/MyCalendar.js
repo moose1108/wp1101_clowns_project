@@ -21,9 +21,12 @@ const listData = [
 
 const MyCalendar = () => {
 
+    const [currDate, setCurrDate] = useState(moment());
+    const [month, setMonth] = useState(moment().month() + 1);
     const [ModalVisible, setModalVisible] = useState(false);
     const [SelectDate, setSelectDate] = useState("");
     const [AllData, setAllData] = useState(listData);
+    const [listOfRefsByDate, setListOfRefsByDate] = useState({});
 
     function calculate(){
       let cost = 0;
@@ -35,7 +38,7 @@ const MyCalendar = () => {
     function onPanelChange(value, mode) {
         const DATE = value.format('YYYY-MM-DD');
         setSelectDate(DATE);
-        console.log(DATE, typeof(DATE));
+        console.log(DATE);
     }
     
     const showModal = () => {
@@ -51,11 +54,15 @@ const MyCalendar = () => {
     };
 
     const dateCellRender = (value) => {
-      return(
-        <>
-            <Badge status="success" text={calculate()} />
-        </>
-      )
+      const eachDate = value.format('YYYY-MM-DD');
+
+     return(
+       <>
+        {listData.filter((x) =>
+        {return x.date === eachDate}).length === 0 ?
+      '' : listData.filter((x) => {return x.date === eachDate})[0].data.map(item => item.cost).reduce((prev, curr) => prev + curr, 0)
+    }</>
+     ) 
     }
     return (
         <>
