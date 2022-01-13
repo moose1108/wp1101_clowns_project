@@ -23,9 +23,6 @@ const login = async () =>{
         message.success({
             content:Message
         })
-        setPassword("");
-        setUsername("");
-        setConfirmpassword("");
         Login(true);
     }
     else

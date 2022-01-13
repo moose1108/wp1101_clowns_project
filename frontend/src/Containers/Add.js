@@ -8,7 +8,6 @@ const { Search } = Input;
 const { Title } = Typography;
 
 const Add = () => {
-
     const [Textfield, setTextfield] = useState(0);
     const [Textmessage, setTextmessage] = useState('');
     const [Category, setCategory] = useState("");
@@ -25,12 +24,12 @@ const Add = () => {
         setCategory(event.target.innerText);
     }
     
-    const outcome = ["飲食", "交通", "日常用品", "服飾", "電話網路", "水電瓦斯", "娛樂", "教育", "保險", "稅金"]
-    const income = ["工資", "獎金", "股票", "彩券"]
+    const outcome = ["飲�??", "交�??", "??�常??��??", "???�?", "??�話網路", "水�?��?��??", "�?�?", "??????", "�????", "�????"]
+    const income = ["工�??", "??????", "??�票", "彩�??"]
 
     return (
         <Tabs defaultActiveKey="1" centered onTabClick={() => setTextfield(0)}>
-            <TabPane tab="支出" key="1" >
+            <TabPane tab="??��??" key="1" >
                 <Space size={[20, 20]} wrap align='center'>
                     {new Array(10).fill(null).map((_, index) => (
                         <Button shape='round' key={index} style={{ height: '75px', width: '75px', padding: '4px 4px' }}
@@ -43,7 +42,7 @@ const Add = () => {
                     {Textfield ? (<>
                         <Title >2077/8/7</Title>
                         <Title style={{ marginBottom: '10px' }}>{Category}</Title>
-                        <Input placeholder="備註"
+                        <Input placeholder="???�?"
                             allowClear
                             size="large"
                             style={{ width: '60%', marginTop: '20px' }}
@@ -51,9 +50,9 @@ const Add = () => {
                             onChange={(e) => setTextmessage(e.target.value)}
                         />
                         <Search
-                            placeholder="請輸入金額"
+                            placeholder="�?輸�?��??�?"
                             allowClear
-                            enterButton="確認"
+                            enterButton="確�??"
                             size="large"
                             style={{ width: '50%', marginTop: '20px' }}
                             onSearch={handleMoney}
@@ -62,7 +61,7 @@ const Add = () => {
                     }
                 </div>
             </TabPane>
-            <TabPane tab="收入" key="2" align='center'>
+            <TabPane tab="??��??" key="2" align='center'>
                 <Space size={[20, 20]} wrap align='center'>
                     {new Array(4).fill(null).map((_, index) => (
                         <Button shape='round' key={index} style={{ height: '75px', width: '75px', padding: '4px 4px' }}
@@ -75,7 +74,7 @@ const Add = () => {
                     {Textfield ? (<>
                         <Title >2077/8/7</Title>
                         <Title >{Category}</Title>
-                        <Input placeholder="備註"
+                        <Input placeholder="???�?"
                             allowClear
                             size="large"
                             style={{ width: '60%', marginTop: '20px' }}
@@ -83,9 +82,9 @@ const Add = () => {
                             onChange={(e) => setTextmessage(e.target.value)}
                         />
                         <Search
-                            placeholder="請輸入金額"
+                            placeholder="�?輸�?��??�?"
                             allowClear
-                            enterButton="確認"
+                            enterButton="確�??"
                             size="large"
                             style={{ width: '50%', marginTop: '20px' }}
                             onSearch={handleMoney}
