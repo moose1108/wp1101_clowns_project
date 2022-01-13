@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Navigate, NavLink, useNavigate } from "react-router-dom";
 import MyCalendar from './Containers/MyCalendar';
 import Add from './Containers/Add';
-import Signin from './Containers/Sign_in'
+import Signin from './Containers/Sign_in';
+import Graph from './Containers/Graph';
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -103,6 +104,7 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<MyCalendar username={username} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
+                <Route exact path="/graph" element={<Graph />} />
               </Routes>
             </Content>
           </Layout>

@@ -6,3 +6,5 @@ const Graph = ()=>{
         <div id ='chart'></div>
     )
 }
+
+export default Graph;
