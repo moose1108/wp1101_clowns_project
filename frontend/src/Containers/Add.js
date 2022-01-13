@@ -20,6 +20,7 @@ const Add = ({ username }) => {
     const [Date, setDate] = useState(moment());
     let navigate = useNavigate();
 
+    console.log(Date);
     const handleTab = (key) => {
         setTextfield(0);
         setStatus(key);
