@@ -17,12 +17,21 @@ import "./Css/Menu.css"
 
 const { Header, Content, Footer, Sider } = Layout;
 
-
+const LOCALSTORAGE_KEY = "save-username";
+const LOCALSTORAGE_KEY2 = false;
 function App() {
-  const [login, setLogin] = useState(false);
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
+  const savedUsername = localStorage.getItem(LOCALSTORAGE_KEY);
+  const savedLogin = localStorage.getItem(LOCALSTORAGE_KEY2);
+  const [login, setLogin] = useState(savedLogin || false);
+  const [password,setPassword] = useState("");
+  const [username,setUsername] = useState( savedUsername || "");
+  const [confirmpassword,setConfirmpassword] = useState("");
+  useEffect(() => {
+    if (login) {
+        localStorage.setItem(LOCALSTORAGE_KEY, username);
+        localStorage.setItem(LOCALSTORAGE_KEY2,login)
+      }
+    }, [login, username]);
   let navigate = useNavigate();
   useEffect(() => {
     navigate("/");

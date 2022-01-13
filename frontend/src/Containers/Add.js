@@ -8,8 +8,8 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 const { Title } = Typography;
 
-const Add = ({ username }) => {
 
+const Add = ({ username }) => {
     const [Textfield, setTextfield] = useState(0);
     const [Content, setContent] = useState('');
     const [Type, setType] = useState("");
