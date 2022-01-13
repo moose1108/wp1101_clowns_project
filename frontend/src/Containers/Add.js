@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Tabs, Button, Space, Input, Typography, message } from 'antd';
 import '../Css/Add.css';
 import axios from '../axios.js'
+import { DatePicker } from 'antd';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -33,7 +34,7 @@ const Add = ({ username }) => {
         }
         else if (r.test(cost)) {
 
-            navigate("/calendar");
+            navigate("/");
         }
         else {
             message.error({
@@ -63,7 +64,7 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title >2077/8/7</Title>
+                        <Title ><DatePicker size='large' /></Title>
                         <Title style={{ marginBottom: '10px' }}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear

@@ -19,8 +19,8 @@ const listData = [
 
 
 
-const MyCalendar = () => {
-
+const MyCalendar = ({username}) => {
+  // console.log("My calender: ",username);
     const [ModalVisible, setModalVisible] = useState(false);
     const [SelectDate, setSelectDate] = useState("");
     const [AllData, setAllData] = useState(listData);
