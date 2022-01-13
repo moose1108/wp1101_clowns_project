@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 const { Title } = Typography;
 
-const Add = () => {
+const Add = ({ username }) => {
 
     const [Textfield, setTextfield] = useState(0);
     const [Content, setContent] = useState('');
@@ -20,6 +20,7 @@ const Add = () => {
     const handleTab = (key) => {
         setTextfield(0);
         setStatus(key);
+        console.log(username);
     }
 
     const handleCost = async (cost) => {
@@ -31,6 +32,7 @@ const Add = () => {
             })
         }
         else if (r.test(cost)) {
+
             navigate("/calendar");
         }
         else {

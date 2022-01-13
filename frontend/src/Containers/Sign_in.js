@@ -6,41 +6,36 @@ import { Layout } from 'antd';
 import { useState } from 'react';
 import axios from '../axios.js'
 
-const NormalLoginForm = ({Login,password,username,confirmpassword,setConfirmpassword,setPassword,setUsername}) => {
-const onFinish = values => {
-    console.log('Received values of form: ', values);
-};
-const login = async () =>{
-    const {
-        data: { Message, status },
-    } = await axios.get('/api/Check', {
-        params: {
-          username,
-          password
-        },  
-     });
-    if(status)
-    {   
-        message.success({
-            content:Message
-        })
-        setPassword("");
-        setUsername("");
-        setConfirmpassword("");
-        Login(true);
+const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfirmpassword, setPassword, setUsername }) => {
+    const onFinish = values => {
+        console.log('Received values of form: ', values);
+    };
+    const login = async () => {
+        const {
+            data: { Message, status },
+        } = await axios.get('/api/Check', {
+            params: {
+                username,
+                password
+            },
+        });
+        if (status) {
+            message.success({
+                content: Message
+            })
+            Login(true);
+        }
+        else {
+            message.error({
+                content: Message
+            })
+        }
     }
-    else
-    {
-        message.error({
-            content:Message
-        })
-    }
-}
-const [isModalVisible, setIsModalVisible] = useState(false);
-const showModal = () => {
-    setIsModalVisible(true);
-};
-const handleOk = async () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+    const handleOk = async () => {
         if (password !== "" && username !== "" && confirmpassword !== "") {
             if (password === confirmpassword) {
                 const {
