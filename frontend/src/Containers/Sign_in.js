@@ -2,9 +2,10 @@ import React from 'react';
 import '../Css/Sign_in.css';
 import { Form, Input, Button, Checkbox, Modal, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Layout} from 'antd';
+import { Layout } from 'antd';
 import { useState } from 'react';
 import axios from '../axios.js'
+
 const NormalLoginForm = ({Login,password,username,confirmpassword,setConfirmpassword,setPassword,setUsername}) => {
 const onFinish = values => {
     console.log('Received values of form: ', values);
@@ -17,7 +18,7 @@ const login = async () =>{
           username,
           password
         },  
-      });
+     });
     if(status)
     {   
         message.success({
@@ -37,55 +38,50 @@ const showModal = () => {
     setIsModalVisible(true);
 };
 const handleOk = async () => {
-    if(password !== "" && username !=="" && confirmpassword !=="")
-    {
-        if(password === confirmpassword)
-        {   
-            const {
-                data: { Message,status},
+        if (password !== "" && username !== "" && confirmpassword !== "") {
+            if (password === confirmpassword) {
+                const {
+                    data: { Message, status },
                 } = await axios.post('/api/Register', {
-                username,
-                password
-            });
-            if(status)
-            {
-                setPassword("");
-                setUsername("");
-                setConfirmpassword("");
-                message.success({
-                    content:Message
-                })
-                setIsModalVisible(false);
-                window.location.reload(true);
+                    username,
+                    password
+                });
+                if (status) {
+                    setPassword("");
+                    setUsername("");
+                    setConfirmpassword("");
+                    message.success({
+                        content: Message
+                    })
+                    setIsModalVisible(false);
+                    window.location.reload(true);
+                }
+                else {
+                    message.error({
+                        content: Message
+                    })
+                }
             }
-            else
-            {
+            else {
                 message.error({
-                    content:Message
+                    content: 'Confirmed Passowrd is not same!'
                 })
             }
         }
         else {
             message.error({
-                content:'Confirmed Passowrd is not same!'
+                content: 'Username or Password or ConfirmPassword is empty'
             })
         }
-    }
-    else
-    {
-        message.error({
-            content:'Username or Password or ConfirmPassword is empty'
-        })
-    }
-};
-const handleCancel = () => {
-    setIsModalVisible(false);
-    setPassword("");
-    setUsername("");
-    setConfirmpassword("");
-    window.location.reload(true);
-};
-return (
+    };
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        setPassword("");
+        setUsername("");
+        setConfirmpassword("");
+        window.location.reload(true);
+    };
+    return (
         <Layout style={{ backgroundColor: "azure", height: "100%", }}>
             <div className='space'>
                 <div>
@@ -109,7 +105,7 @@ return (
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e)=>{setUsername(e.target.value)}}/>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => { setUsername(e.target.value) }} />
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -124,7 +120,7 @@ return (
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
-                                onChange={(e)=>{setPassword(e.target.value)}}
+                                onChange={(e) => { setPassword(e.target.value) }}
                             />
                         </Form.Item>
                         <Form.Item>
