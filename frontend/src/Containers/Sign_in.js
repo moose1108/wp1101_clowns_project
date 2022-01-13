@@ -5,42 +5,42 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { useState } from 'react';
 import axios from '../axios.js'
-const NormalLoginForm = ({ Login }) => {
-    const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
-    const [confirmpassword, setConfirmpassword] = useState("");
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
-    };
-    const login = async () => {
-        const {
-            data: { Message, status },
-        } = await axios.get('/api/Check', {
-            params: {
-                username,
-                password
-            },
-        });
-        if (status) {
-            message.success({
-                content: Message
-            })
-            setPassword("");
-            setUsername("");
-            setConfirmpassword("");
-            Login(true);
-        }
-        else {
-            message.error({
-                content: Message
-            })
-        }
+
+const NormalLoginForm = ({Login,password,username,confirmpassword,setConfirmpassword,setPassword,setUsername}) => {
+const onFinish = values => {
+    console.log('Received values of form: ', values);
+};
+const login = async () =>{
+    const {
+        data: { Message, status },
+    } = await axios.get('/api/Check', {
+        params: {
+          username,
+          password
+        },  
+     });
+    if(status)
+    {   
+        message.success({
+            content:Message
+        })
+        setPassword("");
+        setUsername("");
+        setConfirmpassword("");
+        Login(true);
     }
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-    const handleOk = async () => {
+    else
+    {
+        message.error({
+            content:Message
+        })
+    }
+}
+const [isModalVisible, setIsModalVisible] = useState(false);
+const showModal = () => {
+    setIsModalVisible(true);
+};
+const handleOk = async () => {
         if (password !== "" && username !== "" && confirmpassword !== "") {
             if (password === confirmpassword) {
                 const {

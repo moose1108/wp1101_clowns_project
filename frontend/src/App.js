@@ -19,9 +19,10 @@ const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [login, setLogin] = useState(false);
-
+  const [password,setPassword] = useState("");
+  const [username,setUsername] = useState("");
+  const [confirmpassword,setConfirmpassword] = useState("");
   let navigate = useNavigate();
-
   useEffect(() => {
     navigate("/");
   }, [login]);
@@ -79,7 +80,7 @@ function App() {
     </div>
   ) : (
     <Routes>
-      <Route exact path="/" element={<Signin Login={setLogin} />} />
+      <Route exact path="/" element={<Signin Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername = {setUsername}/>} />
     </Routes>
   )
 }
