@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Button, Modal, Calendar, Badge, List, DatePicker } from "antd";
 import moment from "moment";
+import '../Css/MyCalendar.css'
+import { tr } from "date-fns/locale";
 import axios from '../axios.js'
+
 
 
 const listData = [
@@ -78,7 +81,6 @@ const MyCalendar =    ({ username }) => {
         onSelect={showModal}
       />
       <Modal title={SelectDate} visible={ModalVisible} onOk={handleOk} onCancel={handleCancel}>
-
         {listData.filter((x) => 
           { return x.date === SelectDate }).length === 0 ?
             '' : listData.filter((x) => 
