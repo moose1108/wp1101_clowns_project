@@ -32,15 +32,15 @@ const MyCalendar =    ({ username }) => {
   const [SelectDate, setSelectDate] = useState("");
   const [AllData, setAllData] = useState(listData);
   const [listOfRefsByDate, setListOfRefsByDate] = useState({});
-  const getdata = async ()=>{
-      const { data: { user } } = await axios.get('/api/GetUserInformation', { // get backend
-        params: {
-            username, // give backend
-        },
-    });
-    console.log(user.records[0]);
-  }
-  getdata();
+  // const getdata = async ()=>{
+  //     const { data: { records } } = await axios.get('/api/GetUserInformation', { // get backend
+  //       params: {
+  //           username, // give backend
+  //       },
+  //   });
+  //   console.log(records);
+  // }
+  // getdata();
   function onPanelChange(value, mode) {
     const DATE = value.format('YYYY-MM-DD');
     setSelectDate(DATE);
