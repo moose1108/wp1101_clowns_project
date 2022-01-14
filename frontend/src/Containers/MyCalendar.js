@@ -51,12 +51,31 @@ const MyCalendar = ({ username }) => {
     const eachDate = value.format('YYYY-MM-DD');
     return (
       <>
-        {curRecord.filter((x) => 
-        { return x.date === eachDate }).length === 0 ? 
-        '' : 
-        curRecord.filter((x) => 
-        { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
-        }
+        <>
+          {curRecord.filter((x) => 
+            { return x.date === eachDate }).length === 0 ? '' : "支出: "}
+        </>
+        <>
+          {curRecord.filter((x) => 
+          { return x.date === eachDate }).length === 0 ? 
+          '' : curRecord.filter((x) => 
+          { return (x.date === eachDate && x.status === "支出") }).reduce((sum, item) => 
+            sum + item.cost, 0)
+          }
+        </>
+        <br></br>
+        <>
+          {curRecord.filter((x) => 
+            { return x.date === eachDate }).length === 0 ? '' : "收入: "}
+        </>
+        <>
+          {curRecord.filter((x) => 
+            { return x.date === eachDate }).length === 0 ? 
+            '' : curRecord.filter((x) => 
+            { return (x.date === eachDate && x.status === "收入") }).reduce((sum, item) => 
+              sum + item.cost, 0)
+          }
+        </>
       </>
     )
   };
@@ -71,11 +90,26 @@ const MyCalendar = ({ username }) => {
           onCancel={handleCancel}
         >
           {curRecord.filter((x) => 
-          { return x.date === SelectDate }).length === 0 ? 
+            { return x.date === SelectDate && x.status === "支出" }).length === 0 ? '' : "支出: "
+          }
+          {curRecord.filter((x) => 
+          { return x.date === SelectDate && x.status === "支出" }).length === 0 ? 
           '' : 
-          curRecord.filter((x) => { return x.date === SelectDate }).map(item => (
+          curRecord.filter((x) => { return x.date === SelectDate && x.status === "支出" }).map(item => (
             <li>
-                <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
+                <Badge status={"warning"} text={item.type + " : " + item.content + " : " + item.cost + "元"} />
+            </li>
+          ))
+          }
+          {curRecord.filter((x) => 
+            { return x.date === SelectDate && x.status === "收入" }).length === 0 ? '' : "收入: "
+          }
+          {curRecord.filter((x) => 
+          { return x.date === SelectDate && x.status === "收入" }).length === 0 ? 
+          '' : 
+          curRecord.filter((x) => { return x.date === SelectDate && x.status === "收入" }).map(item => (
+            <li>
+                <Badge status={"success"} text={item.type + " : " + item.content + " : " + item.cost + "元"} />
             </li>
           ))
           }
@@ -97,35 +131,3 @@ const MyCalendar = ({ username }) => {
   );
 }
 export default MyCalendar;
-/*headerRender={({ value, onChange }) => {
-          return (
-                      <div className='header-line'>
-                          <div className={('header-day')}>
-                              {showTodayBtn && (
-                                  <Button onClick={() => showTotay()} >
-                                      今日
-                                  </Button>
-                              )}
-                          </div>
-                          <div className={('picker-header')}>
-                              <span onClick={() => prevYear()}>
-                                  <Icon type="double-left" />
-                              </span>
-                              <span onClick={() => prev()}>
-                                  <Icon type="left" />
-                              </span>                                 
-                    <span className={('picker-header-view')}>
-                    <span>{currentYear}年</span>
-                    <span>{currentMonth}月</span>
-                </span>
-                <span onClick={() => next()}>
-                    <Icon type="right" />
-                </span>
-                <span onClick={() => nextYear()}                                    >
-                    <Icon type="double-right" />
-                </span>
-            </div>
-          </div>
-          }
-        }
-      */
