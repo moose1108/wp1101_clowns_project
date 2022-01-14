@@ -25,7 +25,8 @@ const listData = [
 
 
 
-const MyCalendar =    ({ username }) => {
+
+const MyCalendar = ({ username }) => {
   const [currDate, setCurrDate] = useState(moment());
   const [month, setMonth] = useState(moment().month() + 1);
   const [ModalVisible, setModalVisible] = useState(false);
