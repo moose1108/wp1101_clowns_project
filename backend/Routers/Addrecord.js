@@ -10,7 +10,7 @@ const AddRecord = async (req, res) => {
     await NewRecord.save();
     user.records.push(NewRecord);
     await user.save();
-    res.send({user});
+    res.send({Message:'Add Success'});
 }
 
 export default AddRecord;

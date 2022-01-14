@@ -31,14 +31,14 @@ const Add = ({ username }) => {
         var r = /^[0-9]*[1-9][0-9]*$/;
         if (cost === "") {
             message.error({
-                content: "請輸入數字"
+                content: "Please enter the number"
             })
         }
         else if (r.test(cost)) {
             const {
-                data: { user },
+                data: { Message },
             } = await axios.post('/api/AddRecord', {
-                username:username,
+                username: username,
                 date: date,
                 record: {
                     status: Status,
@@ -47,12 +47,14 @@ const Add = ({ username }) => {
                     cost: cost
                 }
             });
-            console.log(user)
+            message.success({
+                content: Message
+            })
             navigate("/");
         }
         else {
             message.error({
-                content: "請輸入數字"
+                content: "Please enter the number"
             })
         }
     }
@@ -78,7 +80,7 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} /></Title>
+                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
                         <Title>{Date.format('YYYY-MM-DD')}</Title>
                         <Title style={{ marginBottom: '10px' }}>{Type}</Title>
                         <Input placeholder="備註"
@@ -111,7 +113,7 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} /></Title>
+                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
                         <Title>{Date.format('YYYY-MM-DD')}</Title>
                         <Title >{Type}</Title>
                         <Input placeholder="備註"
