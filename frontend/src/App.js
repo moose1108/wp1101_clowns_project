@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import "./Css/Menu.css"
 import { set } from 'date-fns';
+import axios from './axios.js'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -29,6 +30,19 @@ function App() {
   const [username, setUsername] = useState(savedUsername || "");
   const [confirmpassword, setConfirmpassword] = useState("");
   let navigate = useNavigate();
+
+  const [curRecord, setCurrentRecord] = useState([]);
+  const getData = async () => {
+    const { data: { records } } = await axios.get('/api/GetUserInformation', {
+        params: {
+          username,
+      },
+    });
+    setCurrentRecord(records);
+    console.log(curRecord);
+  }
+  getData();
+
 
   useEffect(() => {
     if (login) {
@@ -102,9 +116,10 @@ function App() {
           <Layout style={{ marginLeft: 200 }}>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial', textAlign: 'center' }}>
               <Routes>
-                <Route exact path="/" element={<MyCalendar username={username} />} />
+                <Route exact path="/" element={<MyCalendar username={username} curRecord={curRecord} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
                 <Route exact path="/graph" element={<Graph />} />
+                <Route exact path="/budget" element={<Graph username={username}/>} />
               </Routes>
             </Content>
           </Layout>
