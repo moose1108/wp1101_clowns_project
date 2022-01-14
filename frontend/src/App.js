@@ -4,6 +4,7 @@ import MyCalendar from './Containers/MyCalendar';
 import Add from './Containers/Add';
 import Signin from './Containers/Sign_in';
 import Graph from './Containers/PieChart';
+import Property from './Containers/Property';
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -15,7 +16,7 @@ import {
   ImportOutlined
 } from '@ant-design/icons';
 import "./Css/Menu.css"
-import { set } from 'date-fns';
+import axios from './axios.js'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -26,37 +27,39 @@ function App() {
   const savedLogin = localStorage.getItem(LOCALSTORAGE_KEY2);
   const [login, setLogin] = useState(false);
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(savedUsername || "");
+  const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   let navigate = useNavigate();
+
+  // const [curRecord, setCurrentRecord] = useState([]);
+  // const getData = async () => {
+  //   const { data: { records } } = await axios.get('/api/GetUserInformation', {
+  //       params: {
+  //         username,
+  //     },
+  //   });
+  //   setCurrentRecord(records);
+  //   console.log(curRecord);
+  // }
+  // getData();
+
 
   useEffect(() => {
     if (login) {
       localStorage.setItem(LOCALSTORAGE_KEY, username);
       localStorage.setItem(LOCALSTORAGE_KEY2, login);
     }
-    navigate("/");
   }, [login, username]);
 
-  // useEffect(() => {
-  //   // console.log(login);
-  //   // console.log(savedLogin);
-  //   if (login === false)
-  //     navigate("/signin");
-  //   else
-  //     navigate("/calendar")
-  // }, [login]);
-
   const handleLogout = () => {
-    localStorage.setItem(LOCALSTORAGE_KEY, "");
-    localStorage.setItem(LOCALSTORAGE_KEY2, false)
-    setUsername("");
-    setPassword("");
+    setUsername("")
     setConfirmpassword("");
+    setPassword("");
     setLogin(false);
+    navigate('/signin')
   }
-  if (login) {
-    return (
+  return (
+    (login ?
       <div>
         <Layout>
           <Sider style={{
@@ -65,13 +68,13 @@ function App() {
             position: 'fixed',
             left: 0,
           }}>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
+            <Menu theme="dark" mode="inline">
               <Menu.Item key='1' style={{ height: '100px', fontSize: '40px', margin: '0px', background: '#971d1d' }}>
                 <NavLink to="/add" />
                 +
               </Menu.Item>
               <Menu.Item key='2' style={{ height: '60px', fontSize: '20px', marginTop: '0px' }} icon={<InsertRowAboveOutlined style={{ fontSize: '110%' }} />}>
-                <NavLink to="/" />
+                <NavLink to="/calendar" />
                 日曆
               </Menu.Item>
               <Menu.Item key='3' style={{ height: '60px', fontSize: '20px' }} icon={<BarChartOutlined style={{ fontSize: '110%' }} />}>
@@ -102,25 +105,25 @@ function App() {
           <Layout style={{ marginLeft: 200 }}>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial', textAlign: 'center' }}>
               <Routes>
-                <Route exact path="/" element={<MyCalendar username={username} />} />
+                <Route exact path="/calendar" element={<MyCalendar username={username} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
                 <Route exact path="/graph" element={<Graph username={username}/>} />
+                <Route exact path="/property" element={<Property username={username} />} />
+                <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
             </Content>
           </Layout>
         </Layout>
       </div>
-    );
-  }
-  else {
-    return (
+      :
       <div>
         <Routes>
-          <Route exact path="/" element={<Signin Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
+          <Route exact path="/signin" element={<Signin Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
+          <Route path="*" element={<Navigate to="/signin" />} />
         </Routes>
       </div>
-    );
-  }
+    ))
 }
+
 
 export default App;

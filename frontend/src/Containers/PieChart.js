@@ -57,7 +57,7 @@ const Graph = ({username}) => {
     }
     useEffect(() => {
         HandleChange();
-    }, [status])
+    }, [status,Date])
     var options = {
         legend: {
             position: 'bottom'
@@ -69,14 +69,14 @@ const Graph = ({username}) => {
             <TabPane tab="支出" key="支出">
                 <div className='pie'>
                     <DatePicker size = "large" defaultValue={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
-                    <Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button> 
+                    {/*<Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button>*/ }
                     <Chart options={options} type='pie'series={series} width="500" height='1000' />
                 </div>
             </TabPane>
             <TabPane tab="收入" key="收入">
                 <div className='pie'>
                     <DatePicker size = "large" defaultValue={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
-                    <Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button> 
+                    {/*<Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button>*/} 
                     <Chart options={options} type='pie'series={series} width="500" height='1000' />
                 </div>
             </TabPane>
