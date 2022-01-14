@@ -67,15 +67,15 @@ const Graph = ({username}) => {
     return (
         <Tabs defaultActiveKey="支出" centered onTabClick={(key) => setStatus(key)}>
             <TabPane tab="支出" key="支出">
+            <DatePicker size = "large" value={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                 <div className='pie'>
-                    <DatePicker size = "large" defaultValue={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                     {/*<Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button>*/ }
                     <Chart options={options} type='pie'series={series} width="500" height='1000' />
                 </div>
             </TabPane>
             <TabPane tab="收入" key="收入">
+            <DatePicker size = "large" value={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                 <div className='pie'>
-                    <DatePicker size = "large" defaultValue={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                     {/*<Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button>*/} 
                     <Chart options={options} type='pie'series={series} width="500" height='1000' />
                 </div>
