@@ -31,17 +31,17 @@ function App() {
   const [confirmpassword, setConfirmpassword] = useState("");
   let navigate = useNavigate();
 
-  const [curRecord, setCurrentRecord] = useState([]);
-  const getData = async () => {
-    const { data: { records } } = await axios.get('/api/GetUserInformation', {
-      params: {
-        username,
-      },
-    });
-    setCurrentRecord(records);
-    console.log(curRecord);
-  }
-  getData();
+  // const [curRecord, setCurrentRecord] = useState([]);
+  // const getData = async () => {
+  //   const { data: { records } } = await axios.get('/api/GetUserInformation', {
+  //       params: {
+  //         username,
+  //     },
+  //   });
+  //   setCurrentRecord(records);
+  //   console.log(curRecord);
+  // }
+  // getData();
 
 
   useEffect(() => {
@@ -107,8 +107,8 @@ function App() {
               <Routes>
                 <Route exact path="/calendar" element={<MyCalendar username={username} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
+                <Route exact path="/graph" element={<Graph username={username}/>} />
                 <Route exact path="/property" element={<Property username={username} />} />
-                <Route exact path="/graph" element={<Graph />} />
                 <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
             </Content>
