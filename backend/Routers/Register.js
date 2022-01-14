@@ -1,5 +1,5 @@
 import { User } from "../Models/Record.js";
-
+import bcrypt from 'bcrypt'
 const CreateUser = async (req,res)=>{
     const { username,password } = req.body;
     const  Username= await User.findOne( {username});
@@ -18,8 +18,14 @@ const CreateUser = async (req,res)=>{
         else
         {
             const newUser = new User({username,password,records:[]});
-            await newUser.save();
-            res.send({Message:'Register Success',status:true});
+            const saltRounds = 10
+            bcrypt.genSalt(saltRounds, function(err, salt) {
+                bcrypt.hash(newUser.password, salt, function(err, hash) {
+                newUser.password = hash;
+                newUser.save();
+                })
+            })
+            res.send({Message:'Register Success !',status:true})
         }
     }
 }
