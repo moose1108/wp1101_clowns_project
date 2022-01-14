@@ -8,6 +8,8 @@ const UserSchema = new Schema({
     records: [{ type: mongoose.Types.ObjectId, ref: "Record" }],
 })
 const RecordSchema = new Schema({
+    date_Y : String,
+    date_YM : String,
     date:String,
     status:String, 
     type:String, 

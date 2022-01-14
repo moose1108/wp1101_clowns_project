@@ -6,13 +6,13 @@ import axios from '../axios.js'
 
 const listData = [
   {
-    date: "2022-01-07", data: [
+    date: "2022-01-07", records: [
       { status: 'success', type: '飲食', content: '國瀚咖哩', cost: 150 },
       { status: 'success', type: '交通', content: '腳踏車拖吊', cost: 50 },
     ]
   },
   {
-    date: "2022-01-09", data: [
+    date: "2022-01-09", records: [
       { status: 'success', type: '教育', content: 'SP課本', cost: 1300 },
       { status: 'success', type: '日常用品', content: '學生證不見', cost: 100 },
     ]
@@ -22,21 +22,22 @@ const listData = [
 
 
 
-const MyCalendar = async () => {
-
+const MyCalendar =    ({ username }) => {
   const [currDate, setCurrDate] = useState(moment());
   const [month, setMonth] = useState(moment().month() + 1);
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
   const [AllData, setAllData] = useState(listData);
   const [listOfRefsByDate, setListOfRefsByDate] = useState({});
-
-  const { data: { user } } = await axios.get('/api/GetUserInformation', { // get backend
+  const getdata = async ()=>{
+      const { data: { user } } = await axios.get('/api/GetUserInformation', { // get backend
         params: {
             username, // give backend
         },
     });
-
+    console.log(user.records[0]);
+  }
+  getdata();
   function onPanelChange(value, mode) {
     const DATE = value.format('YYYY-MM-DD');
     setSelectDate(DATE);
@@ -62,7 +63,7 @@ const MyCalendar = async () => {
       <>
         {listData.filter((x) => { return x.date === eachDate }).length === 0 ?
           '' : listData.filter((x) => 
-          { return x.date === eachDate })[0].data.map(item => 
+          { return x.date === eachDate })[0].records.map(item => 
             item.cost).reduce((prev, curr) => 
             prev + curr, 0)
         }</>
@@ -78,17 +79,15 @@ const MyCalendar = async () => {
       />
       <Modal title={SelectDate} visible={ModalVisible} onOk={handleOk} onCancel={handleCancel}>
 
-        {(listData.filter((x) => 
-        { return x.date === SelectDate }).length === 0 ?
-          '' : listData.filter((x) => 
-          { return x.date === SelectDate })[0].data.map(item => (
-            <li>
-              <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
-            </li>
-          )))
-
+        {listData.filter((x) => 
+          { return x.date === SelectDate }).length === 0 ?
+            '' : listData.filter((x) => 
+            { return x.date === SelectDate })[0].records.map(item => (
+              <li>
+                <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
+              </li>
+            ))
         }
-
       </Modal>
     </>
 

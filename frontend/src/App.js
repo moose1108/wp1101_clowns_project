@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, NavLink, useNavigate } from "react-router-dom"
 import MyCalendar from './Containers/MyCalendar';
 import Add from './Containers/Add';
 import Signin from './Containers/Sign_in';
-import Graph from './Containers/Graph';
+import Graph from './Containers/PieChart';
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -24,7 +24,7 @@ const LOCALSTORAGE_KEY2 = false;
 function App() {
   const savedUsername = localStorage.getItem(LOCALSTORAGE_KEY);
   const savedLogin = localStorage.getItem(LOCALSTORAGE_KEY2);
-  const [login, setLogin] = useState(savedLogin || false);
+  const [login, setLogin] = useState(false);
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(savedUsername || "");
   const [confirmpassword, setConfirmpassword] = useState("");
