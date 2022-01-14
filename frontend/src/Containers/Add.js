@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Tabs, Button, Space, Input, Typography, message } from 'antd';
+import { Tabs, Button, Space, Input, Typography, message, DatePicker } from 'antd';
 import '../Css/Add.css';
 import axios from '../axios.js'
-import { DatePicker } from 'antd';
 import moment from "moment";
 import { set } from 'date-fns';
 
