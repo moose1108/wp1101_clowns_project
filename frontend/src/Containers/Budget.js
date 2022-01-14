@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Bullet } from '@ant-design/plots';
-import { Calendar, DatePicker } from 'antd';
+import { DatePicker } from 'antd';
 
-const Budget = ({ listData }) => {
+const Budget = ({ username }) => {
 
   return (
       <>

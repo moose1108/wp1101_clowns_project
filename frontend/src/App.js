@@ -16,6 +16,7 @@ import {
   ImportOutlined
 } from '@ant-design/icons';
 import "./Css/Menu.css"
+import axios from './axios.js'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -29,6 +30,19 @@ function App() {
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   let navigate = useNavigate();
+
+  const [curRecord, setCurrentRecord] = useState([]);
+  const getData = async () => {
+    const { data: { records } } = await axios.get('/api/GetUserInformation', {
+        params: {
+          username,
+      },
+    });
+    setCurrentRecord(records);
+    console.log(curRecord);
+  }
+  getData();
+
 
   useEffect(() => {
     if (login) {

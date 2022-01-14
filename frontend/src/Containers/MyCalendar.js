@@ -1,40 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Calendar, Badge } from "antd";
-import moment from "moment";
-import '../Css/MyCalendar.css'
 import axios from '../axios.js'
+import { set } from "date-fns";
+import moment from "moment";
+import "../Css/MyCalendar.css";
 
 
-const listData = [
-  { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '飲食', content: '國瀚咖哩', cost: 150 },
-  { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '交通', content: '腳踏車拖吊', cost: 50 },
-  { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '教育', content: 'SP課本', cost: 1300 },
-  { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '日常用品', content: '學生證不見', cost: 100 },
-];
-
-const MyCalendar = ({ username }) => {
+const MyCalendar = ({ curRecord }) => {
 
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
+  //const [curRecord, setCurrentRecord] = useState([]);
+  const [GridMode, setGridMode] = useState("month");
+
 
   const getData = async () => {
-    const { data: { records } } = await axios.get('/api/GetUserInformation', { // get backend
+    const { data: { records } } = await axios.get('/api/GetUserInformation', {
       params: {
-        username, // give backend
+        username,
       },
     });
-    // console.log(records);
+    setCurrentRecord(records);
+    //console.log(curRecord);
   }
   getData();
 
-  function onPanelChange(value) {
+  function onPanelChange(mode) {
+    if (mode === "year")
+      setGridMode("year");
+    else
+      setGridMode("month");
+    console.log(curRecord);
+  }
+
+  function onChange(value) {
     const DATE = value.format('YYYY-MM-DD');
     setSelectDate(DATE);
 
   }
 
   const showModal = () => {
-    setModalVisible(true);
+    if (GridMode === "month")
+      setModalVisible(true);
   };
 
   const handleOk = () => {
@@ -49,37 +56,52 @@ const MyCalendar = ({ username }) => {
     const eachDate = value.format('YYYY-MM-DD');
     return (
       <>
-        {listData.filter((x) => { return x.date === eachDate }).length === 0 ?
+        {curRecord.filter((x) => { return x.date === eachDate }).length === 0 ?
           '' :
-          listData.filter((x) => { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
+          curRecord.filter((x) => { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
         }
       </>
     )
   };
 
+  const Model = () => {
+    return (
+      <>
+        <Modal
+          title={SelectDate}
+          visible={ModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          {curRecord.filter((x) => { return x.date === SelectDate }).length === 0 ?
+            '' :
+            curRecord.filter((x) => { return x.date === SelectDate }).map(item => (
+              <li>
+                <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
+              </li>
+            ))
+          }
+        </Modal>
+      </>
+    )
+  }
+
+  useEffect(() => {
+
+  })
+
   return (
     <>
       <Calendar
-        defaultDate={moment().toDate()}
-        onChange={onPanelChange}
+        onPanelChange={onPanelChange}
         dateCellRender={dateCellRender}
         onSelect={showModal}
+        onChange={onChange}
       />
-      <Modal title={SelectDate} visible={ModalVisible} onOk={handleOk} onCancel={handleCancel}>
 
-        {listData.filter((x) => { return x.date === SelectDate }).length === 0 ?
-          console.log(SelectDate) :
-          listData.filter((x) => { return x.date === SelectDate }).map(item => (
-            <li>
-              <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
-            </li>
-          ))
-        }
-
-      </Modal>
+      {ModalVisible ? Model() : ''}
     </>
 
   );
 }
 export default MyCalendar;
-
