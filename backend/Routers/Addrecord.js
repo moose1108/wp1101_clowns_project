@@ -6,7 +6,7 @@ const AddRecord = async (req, res) => {
     const NewRecord = new Record({dateY,dateYM,date,status,type,content,cost})
     console.log(NewRecord);
     const user = await User.findOne({username})
-    console.log(user);
+    // console.log(user);
     await NewRecord.save();
     user.records.push(NewRecord);
     await user.save();

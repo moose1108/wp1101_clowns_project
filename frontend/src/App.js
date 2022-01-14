@@ -34,8 +34,8 @@ function App() {
   const [curRecord, setCurrentRecord] = useState([]);
   const getData = async () => {
     const { data: { records } } = await axios.get('/api/GetUserInformation', {
-        params: {
-          username,
+      params: {
+        username,
       },
     });
     setCurrentRecord(records);

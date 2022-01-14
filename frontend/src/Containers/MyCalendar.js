@@ -6,7 +6,7 @@ import moment from "moment";
 import "../Css/MyCalendar.css";
 
 
-const MyCalendar = ({ curRecord }) => {
+const MyCalendar = ({ username }) => {
 
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
