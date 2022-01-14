@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Button, Modal, Calendar, Badge } from "antd";
 import moment from "moment";
+import '../Css/MyCalendar.css'
 import axios from '../axios.js'
 
 
 const listData = [
-      { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '飲食', content: '國瀚咖哩', cost: 150 },
-      { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '交通', content: '腳踏車拖吊', cost: 50 },
-      { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '教育', content: 'SP課本', cost: 1300 },
-      { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '日常用品', content: '學生證不見', cost: 100 },
+  { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '飲食', content: '國瀚咖哩', cost: 150 },
+  { dateY: "2022", dateYM: "2022-01", date: "2022-01-07", status: 'success', type: '交通', content: '腳踏車拖吊', cost: 50 },
+  { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '教育', content: 'SP課本', cost: 1300 },
+  { dateY: "2022", dateYM: "2022-01", date: "2022-01-09", status: 'success', type: '日常用品', content: '學生證不見', cost: 100 },
 ];
 
 const MyCalendar = ({ username }) => {
@@ -18,18 +19,18 @@ const MyCalendar = ({ username }) => {
 
   const getData = async () => {
     const { data: { records } } = await axios.get('/api/GetUserInformation', { // get backend
-        params: {
-          username, // give backend
+      params: {
+        username, // give backend
       },
     });
-    console.log(records);
+    // console.log(records);
   }
   getData();
 
   function onPanelChange(value) {
     const DATE = value.format('YYYY-MM-DD');
     setSelectDate(DATE);
-    
+
   }
 
   const showModal = () => {
@@ -48,11 +49,9 @@ const MyCalendar = ({ username }) => {
     const eachDate = value.format('YYYY-MM-DD');
     return (
       <>
-        {listData.filter((x) => 
-        { return x.date === eachDate }).length === 0 ? 
-        '' : 
-        listData.filter((x) => 
-        { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
+        {listData.filter((x) => { return x.date === eachDate }).length === 0 ?
+          '' :
+          listData.filter((x) => { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
         }
       </>
     )
@@ -68,14 +67,13 @@ const MyCalendar = ({ username }) => {
       />
       <Modal title={SelectDate} visible={ModalVisible} onOk={handleOk} onCancel={handleCancel}>
 
-        {listData.filter((x) => 
-        { return x.date === SelectDate }).length === 0 ? 
-        console.log(SelectDate) : 
-        listData.filter((x) => { return x.date === SelectDate }).map(item => (
-          <li>
+        {listData.filter((x) => { return x.date === SelectDate }).length === 0 ?
+          console.log(SelectDate) :
+          listData.filter((x) => { return x.date === SelectDate }).map(item => (
+            <li>
               <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
-          </li>
-        ))
+            </li>
+          ))
         }
 
       </Modal>

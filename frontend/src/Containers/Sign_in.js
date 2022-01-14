@@ -4,10 +4,12 @@ import { Form, Input, Button, Checkbox, Modal, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../axios.js'
 
 
 const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfirmpassword, setPassword, setUsername }) => {
+    let navigate = useNavigate();
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
@@ -25,6 +27,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                 content: Message
             })
             Login(true);
+            navigate('/calendar')
         }
         else {
             message.error({
@@ -78,7 +81,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
         setPassword("");
         setUsername("");
         setConfirmpassword("");
-        window.location.reload(true);
+        // window.location.reload(true);
     };
     return (
         <Layout style={{ backgroundColor: "azure", height: "100%", }}>
@@ -126,9 +129,6 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                             <Form.Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox style={{ color: "azure" }}>Remember me</Checkbox>
                             </Form.Item>
-                            <a className="login-form-forgot" href="" >
-                                Forgot password
-                            </a>
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="login-form-button" onClick={login} style={{ color: "black", background: "white", borderColor: "black", borderRadius: "10px", }} >
