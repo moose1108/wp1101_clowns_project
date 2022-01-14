@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Calendar, Badge, List, DatePicker } from "antd";
 import moment from "moment";
-import { tr } from "date-fns/locale";
+import axios from '../axios.js'
 
 
 const listData = [
@@ -22,7 +22,7 @@ const listData = [
 
 
 
-const MyCalendar = () => {
+const MyCalendar = async () => {
 
   const [currDate, setCurrDate] = useState(moment());
   const [month, setMonth] = useState(moment().month() + 1);
@@ -31,12 +31,11 @@ const MyCalendar = () => {
   const [AllData, setAllData] = useState(listData);
   const [listOfRefsByDate, setListOfRefsByDate] = useState({});
 
-  function calculate() {
-    let cost = 0;
-    for (let i = 0; i < listData.length; i++)
-      cost += listData[i].cost;
-    return cost;
-  }
+  const { data: { user } } = await axios.get('/api/GetUserInformation', { // get backend
+        params: {
+            username, // give backend
+        },
+    });
 
   function onPanelChange(value, mode) {
     const DATE = value.format('YYYY-MM-DD');
@@ -62,7 +61,10 @@ const MyCalendar = () => {
     return (
       <>
         {listData.filter((x) => { return x.date === eachDate }).length === 0 ?
-          '' : listData.filter((x) => { return x.date === eachDate })[0].data.map(item => item.cost).reduce((prev, curr) => prev + curr, 0)
+          '' : listData.filter((x) => 
+          { return x.date === eachDate })[0].data.map(item => 
+            item.cost).reduce((prev, curr) => 
+            prev + curr, 0)
         }</>
     )
   }
@@ -76,8 +78,10 @@ const MyCalendar = () => {
       />
       <Modal title={SelectDate} visible={ModalVisible} onOk={handleOk} onCancel={handleCancel}>
 
-        {(listData.filter((x) => { return x.date === SelectDate }).length === 0 ?
-          '' : listData.filter((x) => { return x.date === SelectDate })[0].data.map(item => (
+        {(listData.filter((x) => 
+        { return x.date === SelectDate }).length === 0 ?
+          '' : listData.filter((x) => 
+          { return x.date === SelectDate })[0].data.map(item => (
             <li>
               <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
             </li>
