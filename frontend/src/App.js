@@ -24,7 +24,7 @@ const LOCALSTORAGE_KEY2 = false;
 function App() {
   const savedUsername = localStorage.getItem(LOCALSTORAGE_KEY);
   const savedLogin = localStorage.getItem(LOCALSTORAGE_KEY2);
-  const [login, setLogin] = useState(savedLogin || false);
+  const [login, setLogin] = useState(false);
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(savedUsername || "");
   const [confirmpassword, setConfirmpassword] = useState("");

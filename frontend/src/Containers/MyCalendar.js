@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Calendar, Badge, List, DatePicker } from "antd";
 import moment from "moment";
+import '../Css/MyCalendar.css'
 import { tr } from "date-fns/locale";
 
 

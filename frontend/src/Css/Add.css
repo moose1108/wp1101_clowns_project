@@ -33,3 +33,9 @@
 .ant-input-affix-wrapper{
    border: 1px solid #971d1d !important;
 }
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
+   background: #971d1d !important;
+}
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before{
+   border: 1px solid #971d1d !important;
+}
