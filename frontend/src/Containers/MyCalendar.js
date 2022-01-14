@@ -25,7 +25,7 @@ const listData = [
 
 
 
-const MyCalendar = async () => {
+const MyCalendar = ({ username }) => {
 
   const [currDate, setCurrDate] = useState(moment());
   const [month, setMonth] = useState(moment().month() + 1);
@@ -34,11 +34,6 @@ const MyCalendar = async () => {
   const [AllData, setAllData] = useState(listData);
   const [listOfRefsByDate, setListOfRefsByDate] = useState({});
 
-  const { data: { user } } = await axios.get('/api/GetUserInformation', { // get backend
-    params: {
-      username, // give backend
-    },
-  });
 
   function onPanelChange(value, mode) {
     const DATE = value.format('YYYY-MM-DD');
