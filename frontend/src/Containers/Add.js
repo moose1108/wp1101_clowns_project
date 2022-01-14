@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Tabs, Button, Space, Input, Typography, message, DatePicker } from 'antd';
+import { Tabs, Button, Space, Input, Typography, message, DatePicker, Modal } from 'antd';
 import '../Css/Add.css';
 import axios from '../axios.js'
 import moment from "moment";
-import { set } from 'date-fns';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -15,8 +14,10 @@ const Add = ({ username }) => {
     const [Textfield, setTextfield] = useState(0);
     const [Content, setContent] = useState('');
     const [Type, setType] = useState("");
+    const [AddType, setAddtype] = useState("");
     const [Status, setStatus] = useState("支出");
     const [Date, setDate] = useState(moment());
+    const [isModalVisible, setIsModalVisible] = useState(false);
     let navigate = useNavigate();
 
     // console.log(Date);
@@ -66,6 +67,29 @@ const Add = ({ username }) => {
         // console.log(event.target.innerText);
         setType(event.target.innerText);
     }
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        if (AddType !== "") {
+            setTextfield(1);
+            setIsModalVisible(false);
+            setType(AddType);
+            message.success({
+                content: 'Add success'
+            })
+        }
+        else {
+            message.error({
+                content: 'Input value is empty'
+            })
+        }
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     const outcome = ["飲食", "交通", "日常用品", "服飾", "電話網路", "水電瓦斯", "娛樂", "教育", "保險", "稅金"]
     const income = ["工資", "獎金", "股票", "彩券"]
@@ -80,12 +104,24 @@ const Add = ({ username }) => {
                         >{outcome[index]}
                         </Button>
                     ))}
+                    <Button shape='round' key={'NEW'} style={{ height: '75px', width: '75px', padding: '4px 4px', fontSize: '25px' }}
+                        onClick={showModal}
+                    >+
+                    </Button>
+                    <Modal title="新增項目" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                        <Input
+                            value={AddType}
+                            size='large'
+                            placeholder="請輸入新項目"
+                            onChange={(e) => { setAddtype(e.target.value) }}
+                        />
+                    </Modal>
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
                         <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
                         <Title>{Date.format('YYYY-MM-DD')}</Title>
-                        <Title style={{ marginBottom: '10px' }}>{Type}</Title>
+                        <Title level={2} style={{ marginBottom: '10px' }}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear
                             size="large"
@@ -113,12 +149,24 @@ const Add = ({ username }) => {
                         >{income[index]}
                         </Button>
                     ))}
+                    <Button shape='round' key={"NEW"} style={{ height: '75px', width: '75px', padding: '4px 4px', fontSize: '25px' }}
+                        onClick={showModal}
+                    >+
+                    </Button>
+                    <Modal title="新增項目" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                        <Input
+                            value={AddType}
+                            size='large'
+                            placeholder="請輸入新項目"
+                            onChange={(e) => { setAddtype(e.target.value) }}
+                        />
+                    </Modal>
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
                         <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
-                        <Title>{Date.format('YYYY-MM-DD')}</Title>
-                        <Title >{Type}</Title>
+                        <Title >{Date.format('YYYY-MM-DD')}</Title>
+                        <Title level={2}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear
                             size="large"
