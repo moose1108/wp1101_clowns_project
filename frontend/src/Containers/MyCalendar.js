@@ -5,43 +5,38 @@ import { set } from "date-fns";
 import moment from "moment";
 import "../Css/MyCalendar.css";
 
-
-const MyCalendar = ({ curRecord }) => {
-
+const MyCalendar = ({ username }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
-  //const [curRecord, setCurrentRecord] = useState([]);
+  const [curRecord, setCurrentRecord] = useState([]);
   const [GridMode, setGridMode] = useState("month");
-
-
-  const getData = async () => {
+  const Get_data = async () => {
     const { data: { records } } = await axios.get('/api/GetUserInformation', {
-      params: {
-        username,
+        params: {
+          username,
       },
     });
     setCurrentRecord(records);
-    //console.log(curRecord);
+    console.log(records);
   }
-  getData();
-
-  function onPanelChange(mode) {
+  useEffect(()=>{
+    Get_data();
+  },[]);
+  function onPanelChange(value, mode) {
+    console.log(mode);
     if (mode === "year")
       setGridMode("year");
     else
       setGridMode("month");
-    console.log(curRecord);
   }
-
-  function onChange(value) {
-    const DATE = value.format('YYYY-MM-DD');
-    setSelectDate(DATE);
-
-  }
-
-  const showModal = () => {
-    if (GridMode === "month")
+ 
+  const showModal = (value) => {
+    if (GridMode === "month"){
+      const DATE = value.format('YYYY-MM-DD');
+      setSelectDate(DATE);
+      console.log(SelectDate);
       setModalVisible(true);
+    }
   };
 
   const handleOk = () => {
@@ -56,39 +51,38 @@ const MyCalendar = ({ curRecord }) => {
     const eachDate = value.format('YYYY-MM-DD');
     return (
       <>
-        {curRecord.filter((x) => { return x.date === eachDate }).length === 0 ?
-          '' :
-          curRecord.filter((x) => { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
+        {curRecord.filter((x) => 
+        { return x.date === eachDate }).length === 0 ? 
+        '' : 
+        curRecord.filter((x) => 
+        { return x.date === eachDate }).reduce((sum, item) => sum + item.cost, 0)
         }
       </>
     )
   };
-
+  
   const Model = () => {
-    return (
+    return(
       <>
-        <Modal
-          title={SelectDate}
-          visible={ModalVisible}
-          onOk={handleOk}
+        <Modal 
+          title={SelectDate} 
+          visible={ModalVisible} 
+          onOk={handleOk} 
           onCancel={handleCancel}
         >
-          {curRecord.filter((x) => { return x.date === SelectDate }).length === 0 ?
-            '' :
-            curRecord.filter((x) => { return x.date === SelectDate }).map(item => (
-              <li>
+          {curRecord.filter((x) => 
+          { return x.date === SelectDate }).length === 0 ? 
+          '' : 
+          curRecord.filter((x) => { return x.date === SelectDate }).map(item => (
+            <li>
                 <Badge status={item.status} text={item.content + " : " + item.cost + "元"} />
-              </li>
-            ))
+            </li>
+          ))
           }
         </Modal>
       </>
     )
-  }
-
-  useEffect(() => {
-
-  })
+  } 
 
   return (
     <>
@@ -96,10 +90,9 @@ const MyCalendar = ({ curRecord }) => {
         onPanelChange={onPanelChange}
         dateCellRender={dateCellRender}
         onSelect={showModal}
-        onChange={onChange}
       />
-
-      {ModalVisible ? Model() : ''}
+      <Model />
+      {/* {ModalVisible ? Model() : ''} */}
     </>
 
   );
