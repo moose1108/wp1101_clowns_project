@@ -36,6 +36,18 @@ const Add = ({ username }) => {
             })
         }
         else if (r.test(cost)) {
+            console.log( {
+                username: username,
+                date_Y: date_Y,
+                date_YM: date_YM,
+                date: date,
+                record: {
+                    status: Status,
+                    type: Type,
+                    content: Content,
+                    cost: cost
+                }
+            })
             const {
                 data: { Message },
             } = await axios.post('/api/AddRecord', {

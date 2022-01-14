@@ -104,7 +104,7 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<MyCalendar username={username} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
-                <Route exact path="/graph" element={<Graph />} />
+                <Route exact path="/graph" element={<Graph username={username}/>} />
               </Routes>
             </Content>
           </Layout>
