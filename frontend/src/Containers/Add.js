@@ -20,13 +20,15 @@ const Add = ({ username }) => {
     const [Date, setDate] = useState(moment());
     let navigate = useNavigate();
 
-    console.log(Date);
+    // console.log(Date);
     const handleTab = (key) => {
         setTextfield(0);
         setStatus(key);
     }
 
     const handleCost = async (cost) => {
+        const date_Y = Date.format('YYYY');
+        const date_YM = Date.format('YYYY-MM');
         const date = Date.format('YYYY-MM-DD');
         var r = /^[0-9]*[1-9][0-9]*$/;
         if (cost === "") {
@@ -39,6 +41,8 @@ const Add = ({ username }) => {
                 data: { Message },
             } = await axios.post('/api/AddRecord', {
                 username: username,
+                date_Y: date_Y,
+                date_YM: date_YM,
                 date: date,
                 record: {
                     status: Status,
