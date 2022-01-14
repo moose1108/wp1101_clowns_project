@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Calendar, Badge } from "antd";
 import axios from '../axios.js'
-import { set } from "date-fns";
 import moment from "moment";
 import "../Css/MyCalendar.css";
 
@@ -91,10 +90,41 @@ const MyCalendar = ({ username }) => {
         dateCellRender={dateCellRender}
         onSelect={showModal}
       />
-      <Model />
-      {/* {ModalVisible ? Model() : ''} */}
+      {ModalVisible ? Model() : ''}
     </>
 
   );
 }
 export default MyCalendar;
+/*headerRender={({ value, onChange }) => {
+          return (
+                      <div className='header-line'>
+                          <div className={('header-day')}>
+                              {showTodayBtn && (
+                                  <Button onClick={() => showTotay()} >
+                                      今日
+                                  </Button>
+                              )}
+                          </div>
+                          <div className={('picker-header')}>
+                              <span onClick={() => prevYear()}>
+                                  <Icon type="double-left" />
+                              </span>
+                              <span onClick={() => prev()}>
+                                  <Icon type="left" />
+                              </span>                                 
+                    <span className={('picker-header-view')}>
+                    <span>{currentYear}年</span>
+                    <span>{currentMonth}月</span>
+                </span>
+                <span onClick={() => next()}>
+                    <Icon type="right" />
+                </span>
+                <span onClick={() => nextYear()}                                    >
+                    <Icon type="double-right" />
+                </span>
+            </div>
+          </div>
+          }
+        }
+      */
