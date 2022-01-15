@@ -5,6 +5,7 @@ import Add from './Containers/Add';
 import Signin from './Containers/Sign_in';
 import Graph from './Containers/PieChart';
 import Property from './Containers/Property';
+import Map from './Containers/Map/Map';
 import { Layout, Menu } from 'antd';
 import {
   BarChartOutlined,
@@ -95,9 +96,10 @@ function App() {
               <Routes>
                 <Route exact path="/calendar" element={<MyCalendar username={username} />} />
                 <Route exact path="/add" element={<Add username={username} />} />
-                <Route exact path="/graph" element={<Graph username={username}/>} />
+                <Route exact path="/graph" element={<Graph username={username} />} />
                 <Route exact path="/property" element={<Property username={username} />} />
                 <Route exact path="/budget" element={<Budget username={username} />} />
+                <Route exact path="/map" element={<Map />} />
                 <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
             </Content>
