@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 
 const override = css`
   display: flex;
-  border-color: green;
+  border-color: #971d1d;
 `;
 
 const MyCalendar = ({ username }) => {
@@ -20,29 +20,29 @@ const MyCalendar = ({ username }) => {
   const [GridMode, setGridMode] = useState("month");
 
   const columns = [
-      {
-        title: '類別',
-        dataIndex: 'type',
-      },{
-        title: '金額(元)',
-        dataIndex: 'cost',
-      },{
-        title: '備註',
-        dataIndex: 'content',
-      },{
-        title: '',
-        dataIndex: '',
-        render: (text, record, index) => {
-          return (
-            curRecord.length > 0 ?
+    {
+      title: '類別',
+      dataIndex: 'type',
+    }, {
+      title: '金額(元)',
+      dataIndex: 'cost',
+    }, {
+      title: '備註',
+      dataIndex: 'content',
+    }, {
+      title: '',
+      dataIndex: '',
+      render: (text, record, index) => {
+        return (
+          curRecord.length > 0 ?
             (
               <Popconfirm title="Sure to delete?" onConfirm={() => onDelete(index)}>
                 <a href="#" color="red">Delete</a>
               </Popconfirm>
             ) : null
-          );
-        },
+        );
       },
+    },
   ];
 
   const GetRecord = async () => {
@@ -58,11 +58,11 @@ const MyCalendar = ({ username }) => {
   const onDelete = async (index) => {
     console.log(username, curRecord[index].date, curRecord[index].status, curRecord[index].content, curRecord[index].type);
     const { data: { Message, NewRecords } } = await axios.post('/api/DeleteRecord', {
-        username: username,
-        status: curRecord[index].status,
-        content: curRecord[index].content,
-        type: curRecord[index].type,
-        date: curRecord[index].date,
+      username: username,
+      status: curRecord[index].status,
+      content: curRecord[index].content,
+      type: curRecord[index].type,
+      date: curRecord[index].date,
     });
     setCurrentRecord(NewRecords);
     //console.log(curRecord);
@@ -100,13 +100,11 @@ const MyCalendar = ({ username }) => {
   const handleCancel = () => {
     setModalVisible(false);
   };
-  
-  function createTable(status){
-    let arr = curRecord.filter((x) => 
-        { return x.date === SelectDate && x.status === status }).length === 0 ? 
-        '' : 
-        curRecord.filter((x) => 
-          { return x.date === SelectDate && x.status === status });
+
+  function createTable(status) {
+    let arr = curRecord.filter((x) => { return x.date === SelectDate && x.status === status }).length === 0 ?
+      '' :
+      curRecord.filter((x) => { return x.date === SelectDate && x.status === status });
     return arr;
   }
 
@@ -148,10 +146,10 @@ const MyCalendar = ({ username }) => {
         >
           <Tabs defaultActiveKey="支出" centered >
             <TabPane tab="支出" key="支出">
-              <Table dataSource={createTable("支出")} columns={columns}/>
+              <Table dataSource={createTable("支出")} columns={columns} />
             </TabPane>
             <TabPane tab="收入" key="收入">
-            <Table dataSource={createTable("收入")} columns={columns}/>
+              <Table dataSource={createTable("收入")} columns={columns} />
             </TabPane>
           </Tabs>
         </Modal>
@@ -159,17 +157,17 @@ const MyCalendar = ({ username }) => {
     )
   }
   const [loading, setLoading] = useState(true)
-    useEffect(()=>{
-        const loadData = async () => {
-          await new Promise((r) => setTimeout(r, 1000))
-          setLoading((loading) => !loading)
-        }
-        loadData()
+  useEffect(() => {
+    const loadData = async () => {
+      await new Promise((r) => setTimeout(r, 1000))
+      setLoading((loading) => !loading)
+    }
+    loadData()
   }, [])
-  return loading?(
-    <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
-    <RingLoader color="green" css={override} size={100}/>
-    </div>) :(
+  return loading ? (
+    <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+      <RingLoader color="#971d1d" css={override} size={100} />
+    </div>) : (
     <>
       <Calendar
         onPanelChange={onPanelChange}

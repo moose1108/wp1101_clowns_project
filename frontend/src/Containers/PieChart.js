@@ -14,7 +14,7 @@ const { Title } = Typography;
 const override = css`
   display: block;
   margin: -20%;
-  border-color: green;
+  border-color: #971d1d;
 `;
 const Graph = ({ username }) => {
     const [Date, setDate] = useState(moment())
@@ -99,7 +99,7 @@ const Graph = ({ username }) => {
 
     return loading2 ? (
         <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-            <RingLoader color="green" css={override} size={100} />
+            <RingLoader color="#971d1d" css={override} size={100} />
         </div>) : (
         <Tabs defaultActiveKey={status} centered onTabClick={(key) => setStatus(key)}>
             <TabPane tab="支出" key="支出">

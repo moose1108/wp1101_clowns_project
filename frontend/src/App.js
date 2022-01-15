@@ -5,7 +5,6 @@ import Add from './Containers/Add';
 import Signin from './Containers/Sign_in';
 import Graph from './Containers/PieChart';
 import Property from './Containers/Property';
-import Map from './Containers/Map/Map';
 import { Layout, Menu, Typography } from 'antd';
 import {
   BarChartOutlined,
@@ -79,18 +78,18 @@ function App() {
                 <NavLink to="/property" />
                 資產
               </Menu.Item>
-              <Menu.Item key='5' style={{ height: '60px', fontSize: '20px' }} icon={<EnvironmentOutlined style={{ fontSize: '110%' }} />}>
+              {/* <Menu.Item key='5' style={{ height: '60px', fontSize: '20px' }} icon={<EnvironmentOutlined style={{ fontSize: '110%' }} />}>
                 <NavLink to="/map" />
                 地圖
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key='6' style={{ height: '60px', fontSize: '20px' }} icon={<ScheduleOutlined style={{ fontSize: '110%' }} />}>
                 <NavLink to="/budget" />
                 預算
               </Menu.Item>
-              <Menu.Item key='7' style={{ height: '60px', fontSize: '20px' }} icon={<SettingOutlined style={{ fontSize: '110%' }} />}>
+              {/* <Menu.Item key='7' style={{ height: '60px', fontSize: '20px' }} icon={<SettingOutlined style={{ fontSize: '110%' }} />}>
                 <NavLink to="/setting" />
                 設定
-              </Menu.Item>
+              </Menu.Item> */}
               <SubMenu key="sub1" title="登出" style={{ height: '60px', fontSize: '20px' }} icon={<ImportOutlined style={{ fontSize: '110%' }} />}>
                 <Menu.Item key="登出" onClick={() => handleLogout()}>確認</Menu.Item>
               </SubMenu>
@@ -104,7 +103,7 @@ function App() {
                 <Route exact path="/graph" element={<Graph username={username} />} />
                 <Route exact path="/property" element={<Property username={username} />} />
                 <Route exact path="/budget" element={<Budget username={username} />} />
-                <Route exact path="/map" element={<Map />} />
+                {/* <Route exact path="/map" element={<Map />} /> */}
                 <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
             </Content>
