@@ -57,8 +57,8 @@ const options = {
 const Budget = ({ username }) => {
   const [Date, setDate] = useState(moment());
   const [labels,setLabels] = useState([]);
-  const [series,setSeries] = useState([]);
-  //const series = [[35], [56]];
+  //const [series,setSeries] = useState([]);
+  const series = [[35], [56]];
   
   const Get_data = async () => {
     const YM =  Date.format("YYYY-MM")
@@ -69,20 +69,20 @@ const Budget = ({ username }) => {
         },
       });
       return records;
-      //console.log(records);
+      console.log(records);
   }
   useEffect(()=>{
     Get_data();
   },[]);
 
-  const HandleChange = async ()=>{
+  /*const HandleChange = async ()=>{
     setLabels([]);
     //setSeries([]);
     let position = {};
     let templabels = new Set();
     let tempseries = [];
     const curRecords = await Get_data();
-    console.log(curRecords);
+    //console.log(curRecords);
     for(let i = 0;i < curRecords.length;i++){   
         let Type = curRecords[i].type
         let cost = curRecords[i].cost
@@ -103,7 +103,7 @@ const Budget = ({ username }) => {
   }
   useEffect(() => {
       HandleChange();
-  }, [Date]);
+  }, [Date]);*/
 
   return (
     <>
