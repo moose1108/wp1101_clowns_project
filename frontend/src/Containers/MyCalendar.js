@@ -36,7 +36,7 @@ const MyCalendar = ({ username }) => {
         return (
           curRecord.length > 0 ?
             (
-              <Popconfirm title="Sure to delete?" onConfirm={() => onDelete(index)}>
+              <Popconfirm title="Sure to delete?" onConfirm={() => onDelete(record._id)}>
                 <a href="#" color="red">Delete</a>
               </Popconfirm>
             ) : null
@@ -56,10 +56,10 @@ const MyCalendar = ({ username }) => {
   };
 
   const onDelete = async (index) => {
-    console.log(username, curRecord[index].date, curRecord[index].status, curRecord[index].content, curRecord[index].type);
+    // console.log(username, curRecord[index].date, curRecord[index].status, curRecord[index].content, curRecord[index].type);
     const { data: { Message, NewRecords } } = await axios.post('/api/DeleteRecord', {
       username: username,
-      _id: curRecord[index]._id,
+      _id: index,
     });
     setCurrentRecord(NewRecords);
     //console.log(curRecord);
@@ -102,6 +102,7 @@ const MyCalendar = ({ username }) => {
     let arr = curRecord.filter((x) => { return x.date === SelectDate && x.status === status }).length === 0 ?
       '' :
       curRecord.filter((x) => { return x.date === SelectDate && x.status === status });
+    console.log(arr);
     return arr;
   }
 
