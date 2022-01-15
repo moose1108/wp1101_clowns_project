@@ -5,7 +5,7 @@ import moment from "moment";
 import '../Css/PieGraph.css'
 import axios from '../axios'
 import { useState,useEffect } from 'react';
-import RingLoader from 'react-spinners/HashLoader'
+import RingLoader from 'react-spinners/RingLoader'
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Title } = Typography;
@@ -14,7 +14,7 @@ const Graph = ({username}) => {
     const [labels,setLabels] = useState([]);
     const [series,setSeries] = useState([]);
     const [status,setStatus] = useState("支出");
-    const [loading,setLoading] = useState(true);
+    const [loading2,setLoading2] = useState(false);
     const getdata = async ()=>{
         const YM =  Date.format("YYYY-MM")
         const { data: { NewRecords } } = await axios.get('/api/GetPieInformation', { // get backend
@@ -28,7 +28,7 @@ const Graph = ({username}) => {
     return NewRecords;
     }
     const HandleChange = async ()=>{
-        setLoading(true);
+        setLoading2((loading)=>!loading)
         setLabels([]);
         setSeries([]);
         let position = {};
@@ -57,9 +57,11 @@ const Graph = ({username}) => {
         }
         setLabels(Array.from(templabels));
         setSeries(tempseries)
+        setLoading2((loading)=>!loading)
     }
     useEffect(() => {
         HandleChange();
+        console.log(loading2);
     }, [status,Date])
     var options = {
         chart:{
@@ -73,7 +75,7 @@ const Graph = ({username}) => {
             }
         },
         noData: {
-            text: "There is no record in this Month",
+            text: " There is no record in this Month",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -89,23 +91,11 @@ const Graph = ({username}) => {
         },
         labels: labels
     };
-    useEffect(()=>{
-        const loadData = async () => {
-          await new Promise((r) => setTimeout(r, 2000))
-          setLoading((loading) => !loading)
-        }
-        loadData()
-    }, [])
-
-    if (loading) {
-        return (
-          <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
-            <RingLoader size={60}/>
-          </div>
-        )
-    }
-    return (
-        <Tabs defaultActiveKey="支出" centered onTabClick={(key) => setStatus(key)}>
+    return loading2?(
+        <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+        <RingLoader size={100}/>
+        </div>) :(
+        <Tabs defaultActiveKey={status} centered onTabClick={(key) => setStatus(key)}>
             <TabPane tab="支出" key="支出">
             <DatePicker size = "large" value={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                 <div className='pie'>
