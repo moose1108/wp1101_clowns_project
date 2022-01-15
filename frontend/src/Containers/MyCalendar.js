@@ -59,10 +59,7 @@ const MyCalendar = ({ username }) => {
     console.log(username, curRecord[index].date, curRecord[index].status, curRecord[index].content, curRecord[index].type);
     const { data: { Message, NewRecords } } = await axios.post('/api/DeleteRecord', {
       username: username,
-      status: curRecord[index].status,
-      content: curRecord[index].content,
-      type: curRecord[index].type,
-      date: curRecord[index].date,
+      _id: curRecord[index]._id,
     });
     setCurrentRecord(NewRecords);
     //console.log(curRecord);
