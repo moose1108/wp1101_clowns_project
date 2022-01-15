@@ -86,7 +86,10 @@ const NormalLoginForm = ({ login2 ,Login, password, username, confirmpassword, s
         window.location.reload(true);
     };
     return (
-        <Layout style={{ backgroundColor: "azure", height: "100%", }}>
+        <div className='back'>
+        <Layout style={{height:"100%"}}>
+            <div className='bg'>
+            <h1>Moose the Record</h1>
             <div className='space'>
                 <div>
                     <h1 className='title'>
@@ -192,8 +195,9 @@ const NormalLoginForm = ({ login2 ,Login, password, username, confirmpassword, s
                     </Modal>
                 </div>
             </div>
+            </div>
         </Layout>
-
+        </div>
     );
 };
 export default NormalLoginForm;
