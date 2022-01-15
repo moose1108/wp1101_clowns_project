@@ -3,7 +3,8 @@ import { Button, Modal, Calendar, Badge, Typography, Tabs, Table } from "antd";
 import axios from '../axios.js'
 import moment from "moment";
 import "../Css/MyCalendar.css";
-
+import { css } from "@emotion/react";
+import RingLoader from 'react-spinners/RingLoader'
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
@@ -25,7 +26,10 @@ const columns = [
       render: () => <Button size="small">delete</Button>,
     },
 ];
-
+const override = css`
+  display: flex;
+  border-color: green;
+`;
 const MyCalendar = ({ username }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
@@ -139,8 +143,18 @@ const MyCalendar = ({ username }) => {
       </>
     )
   }
-
-  return (
+  const [loading, setLoading] = useState(true)
+    useEffect(()=>{
+        const loadData = async () => {
+          await new Promise((r) => setTimeout(r, 1000))
+          setLoading((loading) => !loading)
+        }
+        loadData()
+  }, [])
+  return loading?(
+    <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+    <RingLoader color="green" css={override} size={100}/>
+    </div>) :(
     <>
       <Calendar
         onPanelChange={onPanelChange}

@@ -3,10 +3,10 @@ import '../Css/Sign_in.css';
 import { Form, Input, Button, Checkbox, Modal, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../axios.js'
-
+import RingLoader from 'react-spinners/RingLoader'
 
 const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfirmpassword, setPassword, setUsername }) => {
     let navigate = useNavigate();

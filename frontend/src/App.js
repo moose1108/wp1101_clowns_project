@@ -6,7 +6,7 @@ import Signin from './Containers/Sign_in';
 import Graph from './Containers/PieChart';
 import Property from './Containers/Property';
 import Map from './Containers/Map/Map';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Typography } from 'antd';
 import {
   BarChartOutlined,
   SettingOutlined,
@@ -22,6 +22,8 @@ import Budget from './Containers/Budget';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+const { Title, Text } = Typography;
+
 const LOCALSTORAGE_KEY = "";
 const LOCALSTORAGE_KEY2 = false;
 function App() {
@@ -57,6 +59,9 @@ function App() {
             position: 'fixed',
             left: 0,
           }}>
+            <Header style={{ padding: "0 0" }}>
+              <Title level={3} style={{ marginTop: "0.5em", marginLeft: "0.5em", color: "white" }}>{username}</Title>
+            </Header>
             <Menu theme="dark" mode="inline">
               <Menu.Item key='1' style={{ height: '100px', fontSize: '40px', margin: '0px', background: '#971d1d' }}>
                 <NavLink to="/add" />
