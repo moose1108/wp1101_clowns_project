@@ -18,7 +18,7 @@ const MyCalendar = ({ username }) => {
   const [SelectDate, setSelectDate] = useState("");
   const [curRecord, setCurrentRecord] = useState([]);
   const [GridMode, setGridMode] = useState("month");
-
+  let Change = false;
   const columns = [
     {
       title: '類別',
@@ -74,7 +74,8 @@ const MyCalendar = ({ username }) => {
   }, []);
 
   function onPanelChange(value, mode) {
-    //console.log(mode);
+    // console.log(2);
+    Change = true;
     if (mode === "year")
       setGridMode("year");
     else
@@ -82,7 +83,10 @@ const MyCalendar = ({ username }) => {
   }
 
   const showModal = (value) => {
-    if (GridMode === "month") {
+    // console.log(1);
+    Change = !Change;
+    if (GridMode === "month" && Change === true) {
+      Change = !Change;
       const DATE = value.format('YYYY-MM-DD');
       setSelectDate(DATE);
       //console.log(SelectDate);
