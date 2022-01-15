@@ -6,9 +6,15 @@ import '../Css/PieGraph.css'
 import axios from '../axios'
 import { useState,useEffect } from 'react';
 import RingLoader from 'react-spinners/RingLoader'
+import { css } from "@emotion/react";
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Title } = Typography;
+const override = css`
+  display: block;
+  margin: -20%;
+  border-color: green;
+`;
 const Graph = ({username}) => {
     const [Date,setDate]=useState(moment())
     const [labels,setLabels] = useState([]);
@@ -93,7 +99,7 @@ const Graph = ({username}) => {
     };
     return loading2?(
         <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
-        <RingLoader size={100}/>
+        <RingLoader color="green" css={override} size={100}/>
         </div>) :(
         <Tabs defaultActiveKey={status} centered onTabClick={(key) => setStatus(key)}>
             <TabPane tab="支出" key="支出">
