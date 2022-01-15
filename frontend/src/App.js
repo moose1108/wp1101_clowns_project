@@ -32,7 +32,7 @@ function App() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(savedUsername);
   const [confirmpassword, setConfirmpassword] = useState("");
-  console.log(login);
+  console.log(typeof(login));
   let navigate = useNavigate();
   const setvalue = ()=>{
       localStorage.setItem(LOCALSTORAGE_KEY, username);
@@ -109,7 +109,7 @@ function App() {
                 <Route exact path="/property" element={<Property username={username} />} />
                 <Route exact path="/budget" element={<Budget username={username} />} />
                 {/* <Route exact path="/map" element={<Map />} /> */}
-                {/* <Route path="/" element={<Navigate to="/calendar" />} /> */}
+                <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
             </Content>
           </Layout>
@@ -119,7 +119,7 @@ function App() {
       <div>
         <Routes>
         <Route exact path="/signin" element={<Signin login2={login} Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
-        <Route path="/" element={<NavLink to="/signin" />} />
+        <Route path="/" element={<Navigate to="/signin" />} />
         </Routes>
       </div>
     ))
