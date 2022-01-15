@@ -82,7 +82,7 @@ const Property = ({ username }) => {
                     <div>
                         <Title level={2} type={handleColor(TotalMonth)}>${TotalMonth}</Title>
                     </div>
-                    <Title level={2}>月收支</Title>
+                    <Title level={2}>本月收支</Title>
                 </div>
             </Space>
         </>
