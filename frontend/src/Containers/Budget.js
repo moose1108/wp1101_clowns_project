@@ -62,7 +62,7 @@ const Budget = ({ username }) => {
   
   const Get_data = async () => {
     const YM =  Date.format("YYYY-MM")
-    const { data: { records } } = await axios.get('/api/GetUserInformation', {
+    const { data: { records } } = await axios.get('/api/GetBudgetInformation', {
         params: {
           username,
           YM,
