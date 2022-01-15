@@ -66,7 +66,7 @@ const Add = ({ username }) => {
             message.success({
                 content: Message
             })
-            navigate("/");
+            navigate("/calendar");
         }
         else {
             message.error({

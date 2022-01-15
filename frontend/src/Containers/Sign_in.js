@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../axios.js'
 import RingLoader from 'react-spinners/RingLoader'
 
-const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfirmpassword, setPassword, setUsername }) => {
+const NormalLoginForm = ({ login2 ,Login, password, username, confirmpassword, setConfirmpassword, setPassword, setUsername }) => {
+    console.log(login2);
     let navigate = useNavigate();
     const onFinish = values => {
-        console.log('Received values of form: ', values);
     };
     const login = async () => {
         const {
@@ -26,7 +26,9 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
             message.success({
                 content: Message
             })
-            Login(true);
+            Login("true");
+            setPassword("");
+            setConfirmpassword("")
             navigate('/calendar')
         }
         else {
@@ -81,7 +83,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
         setPassword("");
         setUsername("");
         setConfirmpassword("");
-        // window.location.reload(true);
+        window.location.reload(true);
     };
     return (
         <Layout style={{ backgroundColor: "azure", height: "100%", }}>
@@ -107,7 +109,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => { setUsername(e.target.value) }} />
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => { setUsername((prev) => prev =  e.target.value) }} />
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -122,7 +124,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                onChange={(e) => { setPassword((prev)=> prev = e.target.value) }}
                             />
                         </Form.Item>
                         <Form.Item>
@@ -138,7 +140,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                         </Form.Item>
                     </Form>
                     <Modal title="Register" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                        <Form>
+                        <Form  onFinish={onFinish}>
                             <Form.Item
                                 name="username"
                                 rules={[
@@ -148,7 +150,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                                     },
                                 ]}
                             >
-                                <Input value={username} placeholder='Username' prefix={<UserOutlined className='registerinput' />} onChange={(e) => { setUsername(e.target.value) }}></Input>
+                                <Input value={username} placeholder='Username' prefix={<UserOutlined className='registerinput' />} onChange={(e) => { setUsername((prev)=>prev = e.target.value) }}></Input>
                             </Form.Item>
                             <br />
                             <Form.Item
@@ -165,7 +167,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Password"
-                                    onChange={(e) => { setPassword(e.target.value) }}
+                                    onChange={(e) => { setPassword((prev)=>prev = e.target.value) }}
                                 />
                             </Form.Item>
                             <br />
@@ -183,7 +185,7 @@ const NormalLoginForm = ({ Login, password, username, confirmpassword, setConfir
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Confirm your Password"
-                                    onChange={(e) => { setConfirmpassword(e.target.value) }}
+                                    onChange={(e) => { setConfirmpassword((prev)=> prev = e.target.value) }}
                                 />
                             </Form.Item>
                         </Form>

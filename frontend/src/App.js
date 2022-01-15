@@ -23,33 +23,38 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 const { Title, Text } = Typography;
 
-const LOCALSTORAGE_KEY = "";
-const LOCALSTORAGE_KEY2 = false;
+let LOCALSTORAGE_KEY = "";
+let LOCALSTORAGE_KEY2 = "false";
 function App() {
   const savedUsername = localStorage.getItem(LOCALSTORAGE_KEY);
   const savedLogin = localStorage.getItem(LOCALSTORAGE_KEY2);
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(savedLogin);
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(savedUsername);
   const [confirmpassword, setConfirmpassword] = useState("");
+  console.log(login);
   let navigate = useNavigate();
-
-  useEffect(() => {
-    if (login) {
+  const setvalue = ()=>{
       localStorage.setItem(LOCALSTORAGE_KEY, username);
       localStorage.setItem(LOCALSTORAGE_KEY2, login);
+  }
+  useEffect(() => {
+    if (login === "true") {
+      setvalue()
+      console.log(login)
     }
-  }, [login, username]);
-
+    console.log("test")
+  }, [login]);
   const handleLogout = () => {
+    localStorage.setItem(LOCALSTORAGE_KEY, "");
+    localStorage.setItem(LOCALSTORAGE_KEY2, "false");
     setUsername("")
-    setConfirmpassword("");
-    setPassword("");
-    setLogin(false);
+    setLogin((login)=>{return login = "false"})
     navigate('/signin')
   }
+  console.log(login)
   return (
-    (login ?
+    (login==="true" ?
       <div>
         <Layout>
           <Sider style={{
@@ -104,7 +109,7 @@ function App() {
                 <Route exact path="/property" element={<Property username={username} />} />
                 <Route exact path="/budget" element={<Budget username={username} />} />
                 {/* <Route exact path="/map" element={<Map />} /> */}
-                <Route path="/" element={<Navigate to="/calendar" />} />
+                {/* <Route path="/" element={<Navigate to="/calendar" />} /> */}
               </Routes>
             </Content>
           </Layout>
@@ -113,8 +118,8 @@ function App() {
       :
       <div>
         <Routes>
-          <Route exact path="/signin" element={<Signin Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
-          <Route path="*" element={<Navigate to="/signin" />} />
+        <Route exact path="/signin" element={<Signin login2={login} Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
+        <Route path="/" element={<NavLink to="/signin" />} />
         </Routes>
       </div>
     ))

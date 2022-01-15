@@ -1,5 +1,6 @@
 import { User } from "../Models/Record.js";
 import bcrypt from 'bcrypt'
+import express from 'express'
 const QueryUser = async (req,res) =>{
     const { username,password} = req.query;
     const user = await User.findOne({username});
