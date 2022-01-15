@@ -5,15 +5,16 @@ import moment from "moment";
 import '../Css/PieGraph.css'
 import axios from '../axios'
 import { useState,useEffect } from 'react';
+import RingLoader from 'react-spinners/HashLoader'
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Title } = Typography;
-
 const Graph = ({username}) => {
     const [Date,setDate]=useState(moment())
     const [labels,setLabels] = useState([]);
     const [series,setSeries] = useState([]);
     const [status,setStatus] = useState("支出");
+    const [loading,setLoading] = useState(true);
     const getdata = async ()=>{
         const YM =  Date.format("YYYY-MM")
         const { data: { NewRecords } } = await axios.get('/api/GetPieInformation', { // get backend
@@ -27,11 +28,13 @@ const Graph = ({username}) => {
     return NewRecords;
     }
     const HandleChange = async ()=>{
+        setLoading(true);
         setLabels([]);
         setSeries([]);
         let position = {};
         let templabels = new Set();
         let tempseries = [];
+
         const NewRecords = await getdata();
         console.log(NewRecords)
         for(let i = 0;i < NewRecords.length;i++)
@@ -59,18 +62,55 @@ const Graph = ({username}) => {
         HandleChange();
     }, [status,Date])
     var options = {
+        chart:{
+            animation:{
+                enabled:true,
+                speed: 100,
+                animateGradually: {
+                    enabled: true,
+                    delay: 500
+                },
+            }
+        },
+        noData: {
+            text: "There is no record in this Month",
+            align: 'center',
+            verticalAlign: 'middle',
+            offsetX: 0,
+            offsetY: -200,
+            style: {
+              color: "red",
+              fontSize: '30px',
+              fontFamily: "sans-serif"
+            }
+          },
         legend: {
             position: 'bottom'
         },
         labels: labels
     };
+    useEffect(()=>{
+        const loadData = async () => {
+          await new Promise((r) => setTimeout(r, 2000))
+          setLoading((loading) => !loading)
+        }
+        loadData()
+    }, [])
+
+    if (loading) {
+        return (
+          <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+            <RingLoader size={60}/>
+          </div>
+        )
+    }
     return (
         <Tabs defaultActiveKey="支出" centered onTabClick={(key) => setStatus(key)}>
             <TabPane tab="支出" key="支出">
             <DatePicker size = "large" value={Date} picker="month" onChange={(date)=>{setDate(date)}} allowClear={false}/>
                 <div className='pie'>
                     {/*<Button  type='primary' onClick={()=>{HandleChange()}}> 確認 </Button>*/ }
-                    <Chart options={options} type='pie'series={series} width="500" height='1000' />
+                    <Chart options={options} type = "pie" series={series} width="500" height='1000' />
                 </div>
             </TabPane>
             <TabPane tab="收入" key="收入">
