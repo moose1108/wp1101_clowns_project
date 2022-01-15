@@ -3,18 +3,21 @@ import { Button, Modal, Calendar, Typography, Tabs, Table, Popconfirm, message }
 import axios from '../axios.js'
 import moment from "moment";
 import "../Css/MyCalendar.css";
-
+import { css } from "@emotion/react";
+import RingLoader from 'react-spinners/RingLoader'
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
+
+const override = css`
+  display: flex;
+  border-color: green;
+`;
 
 const MyCalendar = ({ username }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
   const [curRecord, setCurrentRecord] = useState([]);
   const [GridMode, setGridMode] = useState("month");
-  const [arrSuccess, setArrSuccess] = useState([]);
-  const [arrError, setArrError] = useState([]);
-  const [inoutMode, setInoutMode] = useState("支出");
 
   const columns = [
       {
@@ -97,19 +100,6 @@ const MyCalendar = ({ username }) => {
   const handleCancel = () => {
     setModalVisible(false);
   };
-
-  /*const column = () => {
-    let position = {};
-    let templabels = [];
-    for (let i = 0;i < curRecord.length;i++){
-        let Type = curRecord[i].type
-        if(templabels.indexOf(Type) === -1){
-          templabels.push(Type);
-          position.Type = templabels.size - 1;
-        }
-    }
-    return templabels;
-  };*/
   
   function createTable(status){
     let arr = curRecord.filter((x) => 
@@ -117,12 +107,6 @@ const MyCalendar = ({ username }) => {
         '' : 
         curRecord.filter((x) => 
           { return x.date === SelectDate && x.status === status });
-    // if (status === "收入")
-    //   setArrSuccess(arr);
-    // else
-    //   setArrError(arr);
-    //console.log(arrSuccess);
-    //console.log(arrError);
     return arr;
   }
 
@@ -174,8 +158,18 @@ const MyCalendar = ({ username }) => {
       </>
     )
   }
-
-  return (
+  const [loading, setLoading] = useState(true)
+    useEffect(()=>{
+        const loadData = async () => {
+          await new Promise((r) => setTimeout(r, 1000))
+          setLoading((loading) => !loading)
+        }
+        loadData()
+  }, [])
+  return loading?(
+    <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+    <RingLoader color="green" css={override} size={100}/>
+    </div>) :(
     <>
       <Calendar
         onPanelChange={onPanelChange}
