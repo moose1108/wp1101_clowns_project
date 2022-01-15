@@ -20,6 +20,6 @@ const Delete = async (req,res)=>{
     console.log(deleted);
     await Record.findByIdAndRemove(deleted._id);
     await user.save();
-    res.send({Message:"Delete Success !"});
+    res.send({Message:"Delete Success !",NewRecords:user.records});
 }
 export default Delete

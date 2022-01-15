@@ -41,7 +41,6 @@ const Property = ({ username }) => {
                     tempMonth += cost;
             }
         }
-        console.log(tempMonth, tempOutcome, tempIncome);
         setTotalIncome(tempIncome);
         setTotalOutcome(tempOutcome);
         setTotalMonth(tempMonth);

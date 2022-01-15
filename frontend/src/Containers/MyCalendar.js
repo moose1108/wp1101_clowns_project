@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Calendar, Badge, Typography, Tabs, Table } from "antd";
+import { Button, Modal, Calendar, Typography, Tabs, Table, Popconfirm, message } from "antd";
 import axios from '../axios.js'
 import moment from "moment";
 import "../Css/MyCalendar.css";
@@ -8,47 +8,76 @@ import RingLoader from 'react-spinners/RingLoader'
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
-const columns = [
-    {
-      title: '類別',
-      dataIndex: 'type',
-    },{
-      title: '金額',
-      dataIndex: 'cost',
-    },{
-      title: '備註',
-      dataIndex: 'content',
-    },
-    {
-      title: '',
-      dataIndex: '',
-      key: 'x',
-      render: () => <Button size="small">delete</Button>,
-    },
-];
 const override = css`
   display: flex;
   border-color: green;
 `;
+
 const MyCalendar = ({ username }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [SelectDate, setSelectDate] = useState("");
   const [curRecord, setCurrentRecord] = useState([]);
   const [GridMode, setGridMode] = useState("month");
-  const Get_data = async () => {
+
+  const columns = [
+      {
+        title: '類別',
+        dataIndex: 'type',
+      },{
+        title: '金額(元)',
+        dataIndex: 'cost',
+      },{
+        title: '備註',
+        dataIndex: 'content',
+      },{
+        title: '',
+        dataIndex: '',
+        render: (text, record, index) => {
+          return (
+            curRecord.length > 0 ?
+            (
+              <Popconfirm title="Sure to delete?" onConfirm={() => onDelete(index)}>
+                <a href="#" color="red">Delete</a>
+              </Popconfirm>
+            ) : null
+          );
+        },
+      },
+  ];
+
+  const GetRecord = async () => {
     const { data: { records } } = await axios.get('/api/GetUserInformation', {
       params: {
         username,
       },
     });
     setCurrentRecord(records);
-    console.log(records);
-  }
+    //console.log(records);
+  };
+
+  const onDelete = async (index) => {
+    console.log(username, curRecord[index].date, curRecord[index].status, curRecord[index].content, curRecord[index].type);
+    const { data: { Message, NewRecords } } = await axios.post('/api/DeleteRecord', {
+        username: username,
+        status: curRecord[index].status,
+        content: curRecord[index].content,
+        type: curRecord[index].type,
+        date: curRecord[index].date,
+    });
+    setCurrentRecord(NewRecords);
+    //console.log(curRecord);
+    message.success({
+      content: Message
+    })
+
+  };
+
   useEffect(() => {
-    Get_data();
+    GetRecord();
   }, []);
+
   function onPanelChange(value, mode) {
-    console.log(mode);
+    //console.log(mode);
     if (mode === "year")
       setGridMode("year");
     else
@@ -59,7 +88,7 @@ const MyCalendar = ({ username }) => {
     if (GridMode === "month") {
       const DATE = value.format('YYYY-MM-DD');
       setSelectDate(DATE);
-      console.log(SelectDate);
+      //console.log(SelectDate);
       setModalVisible(true);
     }
   };
@@ -71,19 +100,6 @@ const MyCalendar = ({ username }) => {
   const handleCancel = () => {
     setModalVisible(false);
   };
-
-  const column = () => {
-    let position = {};
-    let templabels = [];
-    for (let i = 0;i < curRecord.length;i++){
-        let Type = curRecord[i].type
-        if(templabels.indexOf(Type) === -1){
-          templabels.push(Type);
-          position.Type = templabels.size - 1;
-        }
-    }
-    return templabels;
-  };
   
   function createTable(status){
     let arr = curRecord.filter((x) => 
@@ -91,7 +107,6 @@ const MyCalendar = ({ username }) => {
         '' : 
         curRecord.filter((x) => 
           { return x.date === SelectDate && x.status === status });
-    console.log(arr);
     return arr;
   }
 
