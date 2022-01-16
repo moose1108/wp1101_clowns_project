@@ -37,7 +37,7 @@ const Add = ({ username }) => {
             })
         }
         else if (r.test(cost)) {
-            console.log( {
+            console.log({
                 username: username,
                 date_Y: date_Y,
                 date_YM: date_YM,
@@ -131,8 +131,8 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
-                        <Title>{Date.format('YYYY-MM-DD')}</Title>
+                        <Title level={2}><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
+                        <Title level={2}>{Date.format('YYYY-MM-DD')}</Title>
                         <Title level={2} style={{ marginBottom: '10px' }}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear
@@ -176,8 +176,8 @@ const Add = ({ username }) => {
                 </Space>
                 <div style={{ margin: "5%" }}>
                     {Textfield ? (<>
-                        <Title ><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
-                        <Title >{Date.format('YYYY-MM-DD')}</Title>
+                        <Title level={2}><DatePicker size='large' defaultValue={Date} onChange={(date) => setDate(date)} allowClear={false} /></Title>
+                        <Title level={2}>{Date.format('YYYY-MM-DD')}</Title>
                         <Title level={2}>{Type}</Title>
                         <Input placeholder="備註"
                             allowClear

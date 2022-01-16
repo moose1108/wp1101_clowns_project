@@ -32,11 +32,11 @@ function App() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(savedUsername);
   const [confirmpassword, setConfirmpassword] = useState("");
-  console.log(typeof(login));
+  console.log(typeof (login));
   let navigate = useNavigate();
-  const setvalue = ()=>{
-      localStorage.setItem(LOCALSTORAGE_KEY, username);
-      localStorage.setItem(LOCALSTORAGE_KEY2, login);
+  const setvalue = () => {
+    localStorage.setItem(LOCALSTORAGE_KEY, username);
+    localStorage.setItem(LOCALSTORAGE_KEY2, login);
   }
   useEffect(() => {
     if (login === "true") {
@@ -49,12 +49,12 @@ function App() {
     localStorage.setItem(LOCALSTORAGE_KEY, "");
     localStorage.setItem(LOCALSTORAGE_KEY2, "false");
     setUsername("")
-    setLogin((login)=>{return login = "false"})
+    setLogin((login) => { return login = "false" })
     navigate('/signin')
   }
   console.log(login)
   return (
-    (login==="true" ?
+    (login === "true" ?
       <div>
         <Layout>
           <Sider style={{
@@ -87,10 +87,10 @@ function App() {
                 <NavLink to="/map" />
                 地圖
               </Menu.Item> */}
-              <Menu.Item key='6' style={{ height: '60px', fontSize: '20px' }} icon={<ScheduleOutlined style={{ fontSize: '110%' }} />}>
+              {/* <Menu.Item key='6' style={{ height: '60px', fontSize: '20px' }} icon={<ScheduleOutlined style={{ fontSize: '110%' }} />}>
                 <NavLink to="/budget" />
                 預算
-              </Menu.Item>
+              </Menu.Item> */}
               {/* <Menu.Item key='7' style={{ height: '60px', fontSize: '20px' }} icon={<SettingOutlined style={{ fontSize: '110%' }} />}>
                 <NavLink to="/setting" />
                 設定
@@ -107,7 +107,7 @@ function App() {
                 <Route exact path="/add" element={<Add username={username} />} />
                 <Route exact path="/graph" element={<Graph username={username} />} />
                 <Route exact path="/property" element={<Property username={username} />} />
-                <Route exact path="/budget" element={<Budget username={username} />} />
+                {/* <Route exact path="/budget" element={<Budget username={username} />} /> */}
                 {/* <Route exact path="/map" element={<Map />} /> */}
                 <Route path="/" element={<Navigate to="/calendar" />} />
               </Routes>
@@ -118,8 +118,8 @@ function App() {
       :
       <div>
         <Routes>
-        <Route exact path="/signin" element={<Signin login2={login} Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
-        <Route path="/" element={<Navigate to="/signin" />} />
+          <Route exact path="/signin" element={<Signin login2={login} Login={setLogin} password={password} username={username} confirmpassword={confirmpassword} setPassword={setPassword} setConfirmpassword={setConfirmpassword} setUsername={setUsername} />} />
+          <Route path="/" element={<Navigate to="/signin" />} />
         </Routes>
       </div>
     ))

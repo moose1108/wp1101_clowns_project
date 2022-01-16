@@ -62,8 +62,8 @@ const Property = ({ username }) => {
     return (
         <>
             <div style={{ marginTop: '15%' }}></div>
-            <Title type={handleColor(TotalIncome - TotalOutcome)}>${TotalIncome - TotalOutcome}</Title>
-            <Title style={{ marginTop: "1%", marginBottom: "5%" }}>淨資產</Title>
+            <Title level={2} type={handleColor(TotalIncome - TotalOutcome)}>${TotalIncome - TotalOutcome}</Title>
+            <Title level={2} style={{ marginTop: "1%", marginBottom: "5%" }}>淨資產</Title>
             <Space size={[100, 20]} wrap align='center'>
                 <div>
                     <div>
