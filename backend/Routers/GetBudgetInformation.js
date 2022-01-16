@@ -8,7 +8,7 @@ const QueryBudget = async (req, res) => {
         console.log(item.status);
         return item.date_YM === YM && item.status === "支出";
     })
-    console.log("querybudget" + NewRecords);
+    console.log(NewRecords);
     res.send({NewRecords});
 }
 
