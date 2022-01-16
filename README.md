@@ -39,13 +39,11 @@
     * 至**frontend**子目錄下輸入
         ``` 
         yarn 
-
         ```
     *   到上層目錄執行yarn start
         ``` 
         cd ..
         yarn start 
-
         ```
 * **Backend**
     * **.env**
@@ -55,13 +53,11 @@
     * 至**backend**子目錄下輸入
         ```
         yarn
-
         ```
      * 到上層目錄執行yarn server
         ``` 
         cd ..
         yarn server
-
         ```
 
 ## 工作分配
