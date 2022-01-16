@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DatePicker } from 'antd';
+import { DatePicker, Input } from 'antd';
 import moment from "moment";
 import ReactApexChart from "react-apexcharts";
 import axios from '../axios.js'
@@ -57,38 +57,63 @@ const options = {
 const Budget = ({ username }) => {
   const [Date, setDate] = useState(moment());
   const [labels,setLabels] = useState([]);
+  const [type1, setType1] = useState(-1);
+  const [BudgetData, setBudgetData] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [bud, setBud] = useState(100000000);
   //const [series,setSeries] = useState([]);
-  const series = [[35], [56]];
+  const series = [[total / 100],];
   
   const Get_data = async () => {
     const YM =  Date.format("YYYY-MM")
-    const { data: { records } } = await axios.get('/api/GetBudgetInformation', {
+    const { data: { NewRecords } } = await axios.get('/api/GetBudgetInformation', {
         params: {
           username,
           YM,
         },
       });
-      return records;
-      console.log(records);
+      return NewRecords;
   }
-  useEffect(()=>{
-    Get_data();
-  },[]);
+  
+  const types = async () => {
+      let position = {};
+      let tempTypes = new Set();
+      let tempseries = [];
+      let count = 0;
+      const spent = await Get_data();
+      for (let i = 0; i < spent.length; i++){
+        count += spent[i].cost;
+        // let Type = spent[i].type;
+        // console.log(Type);
+        // let cost = BudgetData[i].cost
+        // if (!tempTypes.has(Type)){
+        //     tempTypes.add(Type);
+        //     position.Type = tempTypes.size - 1;
+        //     tempseries.push(cost);
+        // }
+    }
+    setTotal(count);
+    console.log(total);
+    //setBudgetData(Array.from(tempTypes));
+  }
 
+  useEffect(()=>{
+      types();
+    },[Date]);
   /*const HandleChange = async ()=>{
     setLabels([]);
     //setSeries([]);
     let position = {};
-    let templabels = new Set();
+    let tempTypes = new Set();
     let tempseries = [];
-    const curRecords = await Get_data();
-    //console.log(curRecords);
-    for(let i = 0;i < curRecords.length;i++){   
-        let Type = curRecords[i].type
-        let cost = curRecords[i].cost
-        if(!templabels.has(Type)){
-            templabels.add(Type);
-            position.Type = templabels.size - 1;
+    const BudgetData = await Get_data();
+    //console.log(BudgetData);
+    for(let i = 0;i < BudgetData.length;i++){   
+        let Type = BudgetData[i].type
+        let cost = BudgetData[i].cost
+        if(!tempTypes.has(Type)){
+            tempTypes.add(Type);
+            position.Type = tempTypes.size - 1;
             tempseries.push(cost);
         }
         else{
@@ -98,12 +123,22 @@ const Budget = ({ username }) => {
             })
         }
     }
-    setLabels(Array.from(templabels));
+    setLabels(Array.from(tempTypes));
     setSeries([tempseries])
+  }*/
+
+  const changeValue = (e) => {
+    setBud(e.target.value);
   }
-  useEffect(() => {
-      HandleChange();
-  }, [Date]);*/
+
+  const APexChart = () => {
+    
+    return (
+      <>
+      
+      </>
+    )
+  }
 
   return (
     <>
@@ -115,13 +150,17 @@ const Budget = ({ username }) => {
           {setDate(date)}} 
         allowClear={false}
       />
-      
+      <Input 
+      maxLength={25}
+      placeholder="Input your budget for this month"
+      onChange={changeValue}
+      />
       <ReactApexChart 
         options={options} 
-        series={series[0]}
+        series={series}
         type="radialBar" 
-        height={200} 
-        width={200}
+        height={300} 
+        width={300}
       />
     </>
   )

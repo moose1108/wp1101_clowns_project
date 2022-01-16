@@ -31,7 +31,7 @@ const Graph = ({ username }) => {
                 status
             },
         })
-        console.log(YM);
+        //console.log(YM);
         return NewRecords;
     }
     const HandleChange = async () => {
@@ -65,7 +65,7 @@ const Graph = ({ username }) => {
     }
     useEffect(() => {
         HandleChange();
-        console.log(loading2);
+        //console.log(loading2);
     }, [status, Date])
     var options = {
         chart: {

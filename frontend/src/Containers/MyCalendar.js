@@ -106,7 +106,7 @@ const MyCalendar = ({ username }) => {
     let arr = curRecord.filter((x) => { return x.date === SelectDate && x.status === status }).length === 0 ?
       '' :
       curRecord.filter((x) => { return x.date === SelectDate && x.status === status });
-    console.log(arr);
+    //console.log(arr);
     return arr;
   }
 
@@ -136,6 +136,33 @@ const MyCalendar = ({ username }) => {
       </>
     )
   };
+
+  const monthCellRender = (value) => {
+    const eachMonth = value.format("YYYY-MM");
+    return (
+      <>
+        <Text type="danger" strong={true}>
+          {curRecord.filter((x) => { return x.date_YM === eachMonth }).length === 0 ? '' : "支出: "}
+        </Text>
+        <Text type="danger" strong={true}>
+          {curRecord.filter((x) => { return x.date_YM === eachMonth }).length === 0 ?
+            '' : curRecord.filter((x) => { return (x.date_YM === eachMonth && x.status === "支出") }).reduce((sum, item) =>
+              sum + item.cost, 0)
+          }
+        </Text>
+        <br></br>
+        <Text type="success" strong={true}>
+          {curRecord.filter((x) => { return x.date_YM === eachMonth }).length === 0 ? '' : "收入: "}
+        </Text>
+        <Text type="success" strong={true}>
+          {curRecord.filter((x) => { return x.date_YM === eachMonth }).length === 0 ?
+            '' : curRecord.filter((x) => { return (x.date_YM === eachMonth && x.status === "收入") }).reduce((sum, item) =>
+              sum + item.cost, 0)
+          }
+        </Text>
+      </>
+    )
+  }
 
   const Model = () => {
     return (
@@ -174,6 +201,7 @@ const MyCalendar = ({ username }) => {
       <Calendar
         onPanelChange={onPanelChange}
         dateCellRender={dateCellRender}
+        monthCellRender={monthCellRender}
         onSelect={showModal}
       />
       {ModalVisible ? Model() : ''}

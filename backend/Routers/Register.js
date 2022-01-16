@@ -17,7 +17,7 @@ const CreateUser = async (req,res)=>{
         }
         else
         {
-            const newUser = new User({username,password,records:[]});
+            const newUser = new User({username,password,records:[],budgets:[]});
             const saltRounds = 10
             bcrypt.genSalt(saltRounds, function(err, salt) {
                 bcrypt.hash(newUser.password, salt, function(err, hash) {
