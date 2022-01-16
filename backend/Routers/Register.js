@@ -19,10 +19,10 @@ const CreateUser = async (req,res)=>{
         {
             const newUser = new User({username,password,records:[],budgets:[]});
             const saltRounds = 10
-            bcrypt.genSalt(saltRounds, function(err, salt) {
-                bcrypt.hash(newUser.password, salt, function(err, hash) {
+            bcrypt.genSalt(saltRounds,  function(err, salt) {
+                bcrypt.hash(newUser.password, salt,async function(err, hash) {
                 newUser.password = hash;
-                newUser.save();
+                await newUser.save();
                 })
             })
             res.send({Message:'Register Success !',status:true})

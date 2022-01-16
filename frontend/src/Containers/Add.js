@@ -17,6 +17,7 @@ const Add = ({ username }) => {
     const [AddType, setAddtype] = useState("");
     const [Status, setStatus] = useState("支出");
     const [Date, setDate] = useState(moment());
+    const [address,setAddress] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
     let navigate = useNavigate();
 
@@ -46,7 +47,8 @@ const Add = ({ username }) => {
                     status: Status,
                     type: Type,
                     content: Content,
-                    cost: cost
+                    cost: cost,
+                    address
                 }
             })
             const {
@@ -60,7 +62,8 @@ const Add = ({ username }) => {
                     status: Status,
                     type: Type,
                     content: Content,
-                    cost: cost
+                    cost: cost,
+                    address
                 }
             });
             message.success({
@@ -141,6 +144,14 @@ const Add = ({ username }) => {
                             value={Content}
                             onChange={(e) => setContent(e.target.value)}
                         />
+                        <Title level={2}>
+                            <Input placeholder="地址"
+                            allowClear
+                            size="large"
+                            style={{ width: '60%', marginTop: '20px' }}
+                            value={address}
+                            onChange={(e) =>setAddress(e.target.value)}
+                            /> </Title>
                         <Search
                             placeholder="請輸入金額"
                             allowClear

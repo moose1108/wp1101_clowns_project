@@ -6,10 +6,16 @@ import Geocoder from "react-map-gl-geocoder";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
 /* eslint import/no-webpack-loader-syntax: off */
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import { DatePicker } from 'antd';
+import moment from "moment";
+import axios from "../../axios"
+import Pins from '../../Component/Pins'
 mapboxgl.workerClass = MapboxWorker;
 
 
-const Map = (props) => {
+const Map = ({username}) => {
+    const [Date,setDate] = useState(moment());
+    const [Data,setData] =useState([]);
     const [viewport, setViewport] = useState({
         latitude: 25.017754858333614,
         longitude: 121.53968590135806,
@@ -38,8 +44,23 @@ const Map = (props) => {
             console.log(position.coords.latitude, position.coords.longitude);
         });
     }
+    const GetData = async ()=>{
+        const Y = Date.format("YYYY")
+        const { data: { NewRecords } } = await axios.get('/api/QueryAddress', { // get backend
+            params: {
+                username, // give backend
+                date_Y:Y,
+                status:"支出"
+            },
+        })
+        setData(NewRecords);
+    }
+    useEffect(()=>{
+        GetData()
+    },[Date])
     return (
         <div>
+            <DatePicker size="large" value={Date} picker="year" onChange={(date) => { setDate(date) }} allowClear={false} />
             <div style={{ height: "90vh" }}>
                 <MapGL
                     ref={mapRef}
@@ -50,8 +71,13 @@ const Map = (props) => {
                     onViewportChange={handleViewportChange}
                     mapboxApiAccessToken={MAPBOX_TOKEN}
                     transitionInterpolator={new LinearInterpolator()}
-                >
-                    {/* <Pins Data={Data} ></Pins>               */}
+                >   
+                    {console.log(Data)};
+                    {
+                    Data.map((info) => (
+                        <Pins info={info} />
+                    ))
+                    }          
                     <Geocoder
                         mapRef={mapRef}
                         onViewportChange={handleGeocoderViewportChange}

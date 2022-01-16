@@ -15,7 +15,8 @@ const RecordSchema = new Schema({
     status:String, 
     type:String, 
     content:String, 
-    cost: Number
+    cost: Number,
+    address:String,
 })
 const BudgetSchema = new Schema({
     date_YM : String,
