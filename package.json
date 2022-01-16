@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "cd frontend && yarn start",
-    "server": "cd backend && yarn server"
+    "server": "cd backend && yarn server",
+    "build":"cd backend && yarn build"
   },
   "dependencies": {
     "apexcharts": "^3.33.0",
